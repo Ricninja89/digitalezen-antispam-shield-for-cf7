@@ -3,8 +3,8 @@
 // 🔧 Aggiunge la voce di menu in admin
 add_action('admin_menu', function () {
     add_menu_page(
-        'CF7 AntiSpam',
-        'CF7 AntiSpam',
+        __('CF7 AntiSpam', 'digitalezen-cf7'),
+        __('CF7 AntiSpam', 'digitalezen-cf7'),
         'manage_options',
         'cf7-antispam',
         'dz_cf7_render_dashboard',

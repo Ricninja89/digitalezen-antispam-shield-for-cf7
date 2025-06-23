@@ -22,7 +22,7 @@ function dz_cf7_anti_spam_guard($cf7) {
 
     if ($submitted_token !== $valid_token_now && $submitted_token !== $valid_token_prev) {
         dz_cf7_log_spam('token_scaduto', $data, $log_path);
-        $submission->set_response('⏳ Sessione scaduta. Ricarica la pagina e riprova.');
+        $submission->set_response(__('⏳ Sessione scaduta. Ricarica la pagina e riprova.', 'digitalezen-cf7'));
         $cf7->skip_mail = true;
         return;
     }
@@ -99,7 +99,7 @@ add_filter('wpcf7_validate', function($result, $tags) {
     $t0 = strtotime($data['timestamp'] ?? 'now');
     $t1 = time();
     if (($t1 - $t0) < 4) {
-        $result->invalidate('*', 'Per favore, non inviare troppo velocemente.');
+        $result->invalidate('*', __('Per favore, non inviare troppo velocemente.', 'digitalezen-cf7'));
     }
     return $result;
 }, 10, 2);
