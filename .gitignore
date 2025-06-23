@@ -1,0 +1,9 @@
+﻿*.zip
+*.pot~
+/node_modules
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+*.log
