@@ -34,7 +34,7 @@ function dz_cf7_render_dashboard()
 {
 	// 📸 Banner e logo nella parte alta della dashboard
 	echo '<div style="text-align: center; padding: 20px 0;">';
-	echo '<img src="' . esc_url(DZ_CF7_URL . 'assets/img/banner2.png') . '" alt="Banner DigitaleZen" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">';
+        echo '<img src="' . esc_url(DZ_CF7_URL . 'assets/img/banner2.png') . '" alt="' . esc_attr__('Banner DigitaleZen', 'digitalezen-cf7') . '" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">';
 	echo '</div>';
 
 	include DZ_CF7_DIR . 'templates/dashboard.php';

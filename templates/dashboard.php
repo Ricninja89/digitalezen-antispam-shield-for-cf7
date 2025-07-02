@@ -67,7 +67,7 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	    <li>
 	        <code>[honeypot spamcheck]</code>
 	        <a href="https://wordpress.org/plugins/contact-form-7-honeypot/" target="_blank" style="font-size: 0.9em; color: #0073aa; text-decoration: underline; margin-left: 6px;">
-	            (Richiede il plugin Honeypot for Contact Form 7)
+                <?php echo esc_html__('(Richiede il plugin Honeypot for Contact Form 7)', 'digitalezen-cf7'); ?>
 	        </a>
 	    </li>
 	    <li><code>[hidden timestamp default:get]</code></li>
