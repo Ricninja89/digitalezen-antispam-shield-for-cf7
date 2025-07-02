@@ -64,12 +64,18 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 
 	<h2><?php esc_html_e('🔧 Shortcode da inserire nei tuoi form CF7', 'digitalezen-cf7'); ?></h2>
 	<ul style="margin-left: 1em;">
-	    <li><code>[honeypot spamcheck]</code></li>
+	    <li>
+	        <code>[honeypot spamcheck]</code>
+	        <a href="https://wordpress.org/plugins/contact-form-7-honeypot/" target="_blank" style="font-size: 0.9em; color: #0073aa; text-decoration: underline; margin-left: 6px;">
+	            (Richiede il plugin Honeypot for Contact Form 7)
+	        </a>
+	    </li>
 	    <li><code>[hidden timestamp default:get]</code></li>
 	    <li><code>[hidden form-token default:get]</code></li>
 	</ul>
 
 	<hr>
+
 
 	<h2><?php esc_html_e('📁 File generati dal plugin', 'digitalezen-cf7'); ?></h2>
 	<table class="widefat striped" style="margin-bottom: 2em;">
@@ -197,41 +203,55 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 
 	<h2><?php esc_html_e('📊 Report spam bloccati (dati reali)', 'digitalezen-cf7'); ?></h2>
 
-	<canvas id="dz-cf7-chart" height="100" style="margin-bottom: 2em;"></canvas>
+	<canvas id="dz-cf7-chart" height="100" style="margin-bottom: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border: 1px solid #ddd;"></canvas>
 
 	<?php
-	// Funzione per filtrare il log per fascia temporale
-	function dz_cf7_count_spam_by_range($minutes) {
+	// Funzione aggiornata: conta per tipo e intervallo
+	function dz_cf7_count_spam_by_type_and_range($minutes) {
 	    $path = wp_upload_dir()['basedir'] . '/cf7-logs/cf7-spam-log.csv';
-	    if (!file_exists($path)) return 0;
+	    if (!file_exists($path)) return [];
 
 	    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	    $count = 0;
 	    $now = time();
+	    $types = [];
 
 	    foreach ($lines as $line) {
 	        $cols = str_getcsv($line);
-	        if (!isset($cols[0])) continue;
+	        if (count($cols) < 4) continue;
+
 	        $ts = strtotime($cols[0]);
-	        if (($now - $ts) <= ($minutes * 60)) $count++;
+	        $motivo = trim($cols[3]);
+
+	        if (($now - $ts) <= ($minutes * 60)) {
+	            if (!isset($types[$motivo])) $types[$motivo] = 0;
+	            $types[$motivo]++;
+	        }
 	    }
 
-	    return $count;
+	    return $types;
 	}
 
-	// Calcolo i blocchi per ogni intervallo
-	$data_report = [
-	    esc_html__('24h', 'digitalezen-cf7')      => dz_cf7_count_spam_by_range(1440),
-	    esc_html__('7 giorni', 'digitalezen-cf7') => dz_cf7_count_spam_by_range(10080),
-	    esc_html__('28 giorni', 'digitalezen-cf7') => dz_cf7_count_spam_by_range(40320),
-	    esc_html__('3 mesi', 'digitalezen-cf7')   => dz_cf7_count_spam_by_range(129600),
-	    esc_html__('1 anno', 'digitalezen-cf7')   => dz_cf7_count_spam_by_range(525600),
+	// Intervalli temporali
+	$intervalli = [
+	    '24h'       => 1440,
+	    '7 giorni'  => 10080,
+	    '28 giorni' => 40320,
+	    '3 mesi'    => 129600,
+	    '1 anno'    => 525600
 	];
 
-	// Passaggio dati a JS
-	echo '<script>window.dz_cf7_chart_data = ' . json_encode(array_values($data_report)) . ';</script>';
-	echo '<script>window.dz_cf7_chart_labels = ' . json_encode(array_keys($data_report)) . ';</script>';
+	$data_report_by_type = [];
+
+	foreach ($intervalli as $label => $minutes) {
+	    $data_report_by_type[$label] = dz_cf7_count_spam_by_type_and_range($minutes);
+	}
+
+	// Passa i dati al grafico JS
+	echo '<script>window.dz_cf7_chart_grouped_data = ' . json_encode($data_report_by_type) . ';</script>';
+	echo '<script>window.dz_cf7_chart_labels = ' . json_encode(array_keys($intervalli)) . ';</script>';
+
 	?>
+
 
 	<h3><?php esc_html_e('🧾 Ultimi tentativi bloccati', 'digitalezen-cf7'); ?></h3>
 	<table class="widefat striped" style="max-width: 100%; margin-top: 1em;">

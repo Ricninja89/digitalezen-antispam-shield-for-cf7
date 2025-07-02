@@ -32,9 +32,15 @@ add_action('admin_init', function () {
 // 📄 Mostra la dashboard (carica template)
 function dz_cf7_render_dashboard()
 {
+	// 📸 Banner e logo nella parte alta della dashboard
+	echo '<div style="text-align: center; padding: 20px 0;">';
+	echo '<img src="' . esc_url(DZ_CF7_URL . 'assets/img/banner2.png') . '" alt="Banner DigitaleZen" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">';
+	echo '</div>';
+
 	include DZ_CF7_DIR . 'templates/dashboard.php';
 }
 
+// 🔍 Permette la visualizzazione di file JSON direttamente dal backend
 add_action('admin_init', function () {
 	$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 	$file   = isset($_GET['f']) ? sanitize_text_field($_GET['f']) : '';
@@ -44,4 +50,27 @@ add_action('admin_init', function () {
 	    include_once DZ_CF7_DIR . 'includes/view-json.php';
 	    exit;
 	}
+});
+
+// 📊 Enqueue degli script solo nella pagina CF7 AntiSpam
+add_action('admin_enqueue_scripts', function ($hook) {
+    if ($hook !== 'toplevel_page_cf7-antispam') return;
+
+    // Chart.js CDN
+    wp_enqueue_script(
+        'chartjs',
+        'https://cdn.jsdelivr.net/npm/chart.js',
+        [],
+        null,
+        true
+    );
+
+    // Il tuo script personalizzato
+    wp_enqueue_script(
+        'dz-cf7-dashboard',
+        plugin_dir_url(__DIR__) . 'assets/script.js',
+        ['chartjs'],
+        filemtime(plugin_dir_path(__DIR__) . 'assets/script.js'),
+        true
+    );
 });

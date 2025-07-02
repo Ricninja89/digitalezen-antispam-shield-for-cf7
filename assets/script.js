@@ -2,31 +2,78 @@ document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById("dz-cf7-chart");
     if (!ctx || typeof Chart === "undefined") return;
 
-    const labels = window.dz_cf7_chart_labels || ["24h", "7 giorni", "28 giorni", "3 mesi", "1 anno"];
-    const data = window.dz_cf7_chart_data || [0, 0, 0, 0, 0];
+    const rawData = window.dz_cf7_chart_grouped_data || {};
+    const labels = window.dz_cf7_chart_labels || [];
 
-    new Chart(ctx.getContext('2d'), {
-        type: 'bar',
+    // Raccogli tutti i tipi di blocco unici
+    const blockTypes = Array.from(
+        new Set(
+            Object.values(rawData).flatMap(obj => Object.keys(obj))
+        )
+    );
+
+    // Colori assegnati a ciascun tipo
+    const colors = [
+        "#008ec2", "#ffc107", "#dc3545", "#28a745", "#6f42c1", "#fd7e14", "#17a2b8"
+    ];
+
+    const datasets = blockTypes.map((type, index) => {
+        return {
+            label: type,
+            data: labels.map(label => rawData[label]?.[type] || 0),
+            backgroundColor: colors[index % colors.length],
+            stack: "spam"
+        };
+    });
+
+    new Chart(ctx.getContext("2d"), {
+        type: "bar",
         data: {
             labels: labels,
-            datasets: [{
-                label: "Tentativi bloccati",
-                data: data,
-                backgroundColor: "#008ec2"
-            }]
+            datasets: datasets
         },
         options: {
             responsive: true,
+            animation: {
+                duration: 800,
+                easing: "easeOutQuart"
+            },
             scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: "#333",
+                        font: { size: 12, family: "monospace" }
+                    },
+                    grid: { color: "rgba(0,0,0,0.05)" }
+                },
                 y: {
+                    stacked: true,
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 1
-                    }
+                        stepSize: 1,
+                        color: "#333",
+                        font: { size: 12, family: "monospace" }
+                    },
+                    grid: { color: "rgba(0,0,0,0.05)" }
                 }
             },
             plugins: {
-                legend: { display: false }
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: "#444",
+                        font: { size: 12, family: "monospace" },
+                        padding: 10
+                    }
+                },
+                tooltip: {
+                    backgroundColor: "#222",
+                    titleColor: "#fff",
+                    bodyColor: "#fff",
+                    borderColor: "#00c2a6",
+                    borderWidth: 1
+                }
             }
         }
     });

@@ -112,8 +112,9 @@ add_filter('wpcf7_validate', function($result, $tags) {
 }, 10, 2);
 
 // 🔐 Genera token invisibile [form-token]
-add_filter('wpcf7_form_hidden_fields', function($hidden_fields, $instance) {
-	$form_id = $instance->id();
+add_filter('wpcf7_form_hidden_fields', function($hidden_fields) {
+    $contact_form = WPCF7_ContactForm::get_current();
+    $form_id = $contact_form ? $contact_form->id() : 'unknown';
 	$hour = date('YmdH');
 	$token = hash('sha256', "form-$form_id::$hour");
 	$hidden_fields['form-token'] = $token;
