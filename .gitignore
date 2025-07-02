@@ -1,9 +1,26 @@
-﻿*.zip
-*.pot~
-/node_modules
+# Archivi/compressi
+*.zip
+*.tar.gz
+*.rar
+
+# File di sistema
 .DS_Store
 Thumbs.db
+
+# IDE / editor
 .vscode/
 .idea/
+
+# Node.js / Python cache
+/node_modules/
 __pycache__/
 *.log
+
+# File temporanei
+*.tmp
+*.bak
+*.swp
+
+# Ignora cartelle build se ne hai
+/dist/
+/build/
