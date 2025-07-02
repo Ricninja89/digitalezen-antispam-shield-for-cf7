@@ -2,9 +2,9 @@
 /**
  * File Name: digitalezen-cf7-antispam.php
  * Plugin Name: DigitaleZen CF7 AntiSpam Shield
- * Autore: DigitaleZen
- * Licenza: MIT
- * Description: Protezione avanzata contro lo spam per Contact Form 7. Blacklist, logging, flood control, dashboard elegante.
+ * Author: DigitaleZen
+ * License: MIT
+ * Description: Advanced protection against spam for Contact Form 7. Blacklist, logging, flood control and a sleek dashboard.
  * Version: 1.0.0
  * Author: DigitaleZen
  * Author URI: https://digitalezen.it

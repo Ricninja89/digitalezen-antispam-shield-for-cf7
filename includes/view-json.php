@@ -16,14 +16,14 @@ $whitelist = [
 $file_key = isset($_GET['f']) ? sanitize_text_field($_GET['f']) : '';
 if (!isset($whitelist[$file_key])) {
 	http_response_code(403);
-	exit(esc_html__('⛔ Accesso non autorizzato.', 'digitalezen-cf7'));
+    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7'));
 }
 
 $file_path = $whitelist[$file_key];
 
 if (!file_exists($file_path)) {
 	http_response_code(404);
-	exit(esc_html__('❌ File non trovato.', 'digitalezen-cf7'));
+    exit(esc_html__('❌ File not found.', 'digitalezen-cf7'));
 }
 
 header("Content-Type: text/plain; charset=UTF-8");

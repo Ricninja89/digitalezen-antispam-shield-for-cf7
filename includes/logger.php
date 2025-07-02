@@ -81,13 +81,13 @@ function dz_cf7_send_spam_log_email()
 	}
 
 	// Invia email con allegato
-	wp_mail(
-	    $email_destinatario,
-	    __('Report settimanale CF7 - Spam bloccato', 'digitalezen-cf7'),
-	    __('In allegato il file con i tentativi bloccati tramite il filtro anti-spam.', 'digitalezen-cf7'),
-	    ['Content-Type: text/plain; charset=UTF-8'],
-	    [$path]
-	);
+        wp_mail(
+            $email_destinatario,
+            __('Weekly CF7 report - Blocked spam', 'digitalezen-cf7'),
+            __('Attached is the file with attempts blocked by the anti-spam filter.', 'digitalezen-cf7'),
+            ['Content-Type: text/plain; charset=UTF-8'],
+            [$path]
+        );
 
 	// Svuota il file dopo l'invio
 	file_put_contents($path, '');

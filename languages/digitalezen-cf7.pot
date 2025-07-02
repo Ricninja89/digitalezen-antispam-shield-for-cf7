@@ -9,9 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-23T17:39:31+00:00\n"
+"POT-Creation-Date: 2025-07-02T15:08:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: digitalezen-cf7\n"
 
 #. Plugin Name of the plugin
@@ -21,7 +20,7 @@ msgstr ""
 
 #. Description of the plugin
 #: digitalezen-cf7-antispam.php
-msgid "Protezione avanzata contro lo spam per Contact Form 7. Blacklist, logging, flood control, dashboard elegante."
+msgid "Advanced protection against spam for Contact Form 7. Blacklist, logging, flood control and a sleek dashboard."
 msgstr ""
 
 #. Author of the plugin
@@ -32,4 +31,87 @@ msgstr ""
 #. Author URI of the plugin
 #: digitalezen-cf7-antispam.php
 msgid "https://digitalezen.it"
+msgstr ""
+
+#: includes/admin-dashboard.php:12 includes/admin-dashboard.php:13
+msgid "CF7 AntiSpam"
+msgstr ""
+
+#: includes/admin-dashboard.php:37
+msgid "Banner DigitaleZen"
+msgstr ""
+
+#: includes/firewall.php:29
+msgid "⛔ Access temporarily blocked due to suspicious behavior."
+msgstr ""
+
+#: includes/hooks.php:32
+msgid "⏳ Session expired. Refresh the page and try again."
+msgstr ""
+
+#: includes/hooks.php:109
+msgid "Please do not submit so quickly."
+msgstr ""
+
+#: includes/logger.php:86
+msgid "Weekly CF7 report - Blocked spam"
+msgstr ""
+
+#: includes/logger.php:87
+msgid "Attached is the file with attempts blocked by the anti-spam filter."
+msgstr ""
+
+#: includes/view-json.php:19
+msgid "⛔ Unauthorized access."
+msgstr ""
+
+#: includes/view-json.php:26
+msgid "❌ File not found."
+msgstr ""
+
+#: templates/dashboard.php:22
+msgid "🛡️ DigitaleZen CF7 AntiSpam Shield"
+msgstr ""
+
+#: templates/dashboard.php:25
+msgid "Smart protection for Contact Form 7"
+msgstr ""
+
+#: templates/dashboard.php:37
+msgid ""
+"Every Monday at 2:00 AM the report of blocked spam attempts will be sent."
+msgstr ""
+
+#: templates/dashboard.php:47
+msgid "Destination email"
+msgstr ""
+
+#: templates/dashboard.php:70
+msgid "(Requires the Honeypot for Contact Form 7 plugin)"
+msgstr ""
+
+#: templates/dashboard.php:95
+msgid "Log of blocked attempts (date, email, IP, reason, trigger)"
+msgstr ""
+
+#: templates/dashboard.php:111
+msgid "Blacklist updated from Apps Script (IP, email, domains, etc.)"
+msgstr ""
+
+#: templates/dashboard.php:138
+msgid "Temporarily blocked IPs (soft block, 10 minutes)"
+msgstr ""
+
+#: templates/dashboard.php:157
+msgid "Spam attempt history by IP"
+msgstr ""
+
+#: templates/dashboard.php:179
+msgid "Spam attempt history by email"
+msgstr ""
+
+#: templates/dashboard.php:294
+msgid ""
+"Powered by <a href=\"https://digitalezen.it\" target=\"_blank\" style=\"text-"
+"decoration: none;\">DigitaleZen.it</a> 🚀"
 msgstr ""
