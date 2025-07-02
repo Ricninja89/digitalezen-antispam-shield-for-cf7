@@ -1,83 +1,83 @@
 === DigitaleZen CF7 AntiSpam Shield ===
-Contributors: digitalezen, Riccardo Rosignoli
-Donate link: https://digitalezen.it
-Tags: contact form 7, spam, anti-spam, firewall, honeypot, blacklist, email protection, token, no captcha
-Requires at least: 5.6
-Tested up to: 6.5.2
-Requires PHP: 7.4
-Stable tag: 1.0.0
-License: MIT
-License URI: https://opensource.org/licenses/MIT
+Contributors: digitalezen, Riccardo Rosignoli  
+Donate link: https://digitalezen.it  
+Tags: contact form 7, spam, anti-spam, firewall, honeypot, blacklist, email protection, token, no captcha  
+Requires at least: 5.6  
+Tested up to: 6.5.2  
+Requires PHP: 7.4  
+Stable tag: 1.0.0  
+License: MIT  
+License URI: https://opensource.org/licenses/MIT  
 
-Una protezione definitiva per Contact Form 7: blocca spam, bot e attacchi automatici con honeypot invisibile, token dinamici, firewall IP e blacklist aggiornate ogni 24h. Nessun CAPTCHA.
+The ultimate protection for Contact Form 7: block spam, bots, and automated attacks using invisible honeypots, dynamic tokens, IP firewall, and real-time blacklist updates. No CAPTCHA required.
 
 == Description ==
 
-🛡️ *DigitaleZen CF7 AntiSpam Shield* è un plugin gratuito, leggero e potente per proteggere i moduli **Contact Form 7** da spam, bot e invii sospetti.
+🛡️ *DigitaleZen CF7 AntiSpam Shield* is a lightweight yet powerful plugin that protects **Contact Form 7** forms from spam, bots, and suspicious submissions.
 
-Integra un sistema **multilivello** che include:
+It combines a **multi-layered defense system**, including:
 
-- Honeypot invisibile
-- Token SHA256 a scadenza oraria
-- Flood protection automatica
-- Firewall IP temporaneo
-- Blacklist aggiornata ogni 24 ore da fonti pubbliche (StopForumSpam, Spamhaus, SpamCop)
-- Logging avanzato in CSV
-- Dashboard con report, grafico interattivo e tabella ultimi tentativi
-- Report settimanale via email configurabile
+- Invisible honeypot field
+- Hourly-expiring SHA256 token
+- Automatic flood protection
+- Temporary IP firewall
+- Real-time blacklist updates every 24h (StopForumSpam, Spamhaus, SpamCop)
+- Advanced CSV logging
+- Interactive dashboard with chart and bot log
+- Weekly report via email (configurable)
 
-> ✅ Nessuna configurazione avanzata. Nessun CAPTCHA. Nessuna raccolta dati.  
-> Funziona out-of-the-box.
+> ✅ No complex setup. No CAPTCHA. No data collection.  
+> Works out-of-the-box.
 
 == Features ==
 
-- 🔐 Honeypot invisibile
-- ⏱️ Timer minimo per invio (min. 4 secondi)
-- 🔑 Token SHA256 validi 2 ore
-- 🧱 Firewall IP soft (ban di 10 minuti)
-- 📩 Blacklist IP, email, domini, keyword, username
-- 💥 Flood protection: 3 invii = ban automatico
-- 🧾 Logging dettagliato (data, IP, email, motivo, trigger)
-- 📈 Grafico interattivo spam bloccati per tipo e periodo
-- 📬 Report settimanale via email
-- 🧘 Interfaccia minimale in stile DigitaleZen
-- 🔒 Tutto visibile solo agli amministratori WordPress
+- 🔐 Invisible honeypot protection  
+- ⏱️ Minimum send time (4 seconds)  
+- 🔑 SHA256 token valid for 2 hours  
+- 🧱 Soft IP firewall (10-minute ban)  
+- 📩 Dynamic blacklist: IPs, emails, domains, keywords, usernames  
+- 💥 Flood protection: 3 submissions = auto ban  
+- 🧾 Detailed logging (date, IP, email, reason, trigger)  
+- 📈 Interactive chart of blocked spam by type and timeframe  
+- 📬 Weekly email reports  
+- 🧘 Clean and minimalist DigitaleZen-style UI  
+- 🔒 Admin-only dashboard access
 
 == Screenshots ==
 
-1. Dashboard del plugin
-2. Impostazioni email report
-3. Grafico tentativi spam bloccati per tipo
-4. Log dettagliato ultimi bot intercettati
-5. Visualizzazione file JSON (blacklist e tentativi)
+1. Plugin dashboard  
+2. Weekly report email settings  
+3. Chart of blocked spam attempts  
+4. Log of intercepted bots  
+5. JSON viewer for blacklist and logs
 
 == Installation ==
 
-1. Carica la cartella del plugin in `/wp-content/plugins/`
-2. Attiva il plugin tramite “Plugin > Installati”
-3. Vai in **Impostazioni > CF7 AntiSpam Shield** per visualizzare i dati e copiare gli shortcode
+1. Upload the plugin folder to `/wp-content/plugins/`  
+2. Activate the plugin via “Plugins > Installed”  
+3. Go to **Settings > CF7 AntiSpam Shield** to view data and copy optional shortcodes
 
 == Frequently Asked Questions ==
 
-= Il plugin funziona senza reCaptcha? =
-Sì. E in molti casi blocca tentativi che reCaptcha non rileva.
+= Does it work without reCaptcha? =  
+Yes. And in many cases it blocks spam that reCaptcha doesn't catch.
 
-= La blacklist si aggiorna automaticamente? =
-Sì. Ogni 24h scarica un file JSON da una URL pubblica mantenuta da DigitaleZen.
+= Is the blacklist updated automatically? =  
+Yes. Every 24h, the plugin downloads a JSON file from a public source maintained by DigitaleZen.
 
-= Serve configurare qualcosa? =
-No. Ma puoi personalizzare l’email per il report settimanale e attivare solo gli shortcode che desideri.
+= Do I need to configure anything? =  
+No. But you can customize the weekly report recipient and enable specific shortcodes if needed.
 
-= I dati degli utenti vengono inviati a terzi? =
-No. Tutti i dati (IP, email, log) restano locali. La blacklist è in sola lettura.
+= Are user data sent to third parties? =  
+No. All data (IP, emails, logs) remain local. The blacklist is read-only.
 
 == Changelog ==
 
-= 1.0.0 =
-* Prima versione stabile.
-* Protezione completa per Contact Form 7: token, blacklist, firewall, grafico, log e report email.
+= 1.0.0 =  
+* Initial stable release.  
+* Full-featured protection for Contact Form 7: tokens, blacklist, firewall, chart, logs, and email reports.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Versione iniziale pubblica con tutte le funzionalità base e avanzate per bloccare spam senza CAPTCHA.
+= 1.0.0 =  
+Initial public release with all basic and advanced features to stop spam without CAPTCHA.

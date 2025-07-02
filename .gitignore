@@ -21,6 +21,9 @@ __pycache__/
 *.bak
 *.swp
 
-# Ignora cartelle build se ne hai
+# Ignora cartelle build se presenti
 /dist/
 /build/
+
+# Ignora solo i file binari di traduzione
+*.mo

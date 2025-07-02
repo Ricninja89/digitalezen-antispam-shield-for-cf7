@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DigitaleZen CF7 AntiSpam Shield 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/digitalezen-cf7\n"
+"Language: it_IT\n"
+"Language-Team: DigitaleZen\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: digitalezen-cf7\n"
+
+
+msgid "DigitaleZen CF7 AntiSpam Shield"
+msgstr "DigitaleZen CF7 AntiSpam Shield"
+
+msgid "Advanced protection against spam for Contact Form 7. Blacklist, logging, flood control and a sleek dashboard."
+msgstr "Protezione avanzata contro lo spam per Contact Form 7. Blacklist, logging, controllo flood e dashboard elegante."
+
+msgid "DigitaleZen"
+msgstr "DigitaleZen"
+
+msgid "https://digitalezen.it"
+msgstr "https://digitalezen.it"
+
+msgid "CF7 AntiSpam"
+msgstr "CF7 AntiSpam"
+
+msgid "Banner DigitaleZen"
+msgstr "Banner DigitaleZen"
+
+msgid "⛔ Access temporarily blocked due to suspicious behavior."
+msgstr "⛔ Accesso temporaneamente bloccato per comportamento sospetto."
+
+msgid "⏳ Session expired. Refresh the page and try again."
+msgstr "⏳ Sessione scaduta. Ricarica la pagina e riprova."
+
+msgid "Please do not submit so quickly."
+msgstr "Per favore non inviare così velocemente."
+
+msgid "Weekly CF7 report - Blocked spam"
+msgstr "Report settimanale CF7 - Spam bloccati"
+
+msgid "Attached is the file with attempts blocked by the anti-spam filter."
+msgstr "In allegato il file con i tentativi bloccati dal filtro antispam."
+
+msgid "⛔ Unauthorized access."
+msgstr "⛔ Accesso non autorizzato."
+
+msgid "❌ File not found."
+msgstr "❌ File non trovato."
+
+msgid "🛡️ DigitaleZen CF7 AntiSpam Shield"
+msgstr "🛡️ DigitaleZen CF7 AntiSpam Shield"
+
+msgid "Smart protection for Contact Form 7"
+msgstr "Protezione intelligente per Contact Form 7"
+
+msgid "Every Monday at 2:00 AM the report of blocked spam attempts will be sent."
+msgstr "Ogni lunedì alle 2:00 il report dei tentativi spam bloccati verrà inviato."
+
+msgid "Destination email"
+msgstr "Email di destinazione"
+
+msgid "(Requires the Honeypot for Contact Form 7 plugin)"
+msgstr "(Richiede il plugin Honeypot for Contact Form 7)"
+
+msgid "Log of blocked attempts (date, email, IP, reason, trigger)"
+msgstr "Log dei tentativi bloccati (data, email, IP, motivo, trigger)"
+
+msgid "Blacklist updated from Apps Script (IP, email, domains, etc.)"
+msgstr "Blacklist aggiornata da Apps Script (IP, email, domini, ecc.)"
+
+msgid "Temporarily blocked IPs (soft block, 10 minutes)"
+msgstr "IP temporaneamente bloccati (soft block, 10 minuti)"
+
+msgid "Spam attempt history by IP"
+msgstr "Storico tentativi spam per IP"
+
+msgid "Spam attempt history by email"
+msgstr "Storico tentativi spam per email"
+
+msgid "Powered by <a href="https://digitalezen.it" target="_blank" style="text-decoration: none;">DigitaleZen.it</a> 🚀"
+msgstr "Realizzato da <a href="https://digitalezen.it" target="_blank" style="text-decoration: none;">DigitaleZen.it</a> 🚀"
