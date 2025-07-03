@@ -80,7 +80,7 @@ DigitaleZen CF7 AntiSpam Shield is designed to **work instantly** without any co
 
 ## 📜 License
 
-This plugin is licensed under the GNU General Public License v2.0 or later — see the [LICENSE](LICENSE) file for details.  
+This plugin is licensed under the GNU General Public License v2.0 or later — see the [LICENSE.txt](LICENSE.txt) file for details.  
 Attribution required: *"Powered by DigitaleZen.it"* must remain visible in all forks/derivatives.
 
 ---
