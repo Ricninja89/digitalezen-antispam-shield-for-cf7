@@ -83,8 +83,8 @@ function dz_cf7_send_spam_log_email()
 	// Invia email con allegato
         wp_mail(
             $email_destinatario,
-            __('Weekly CF7 report - Blocked spam', 'digitalezen-cf7-antispam'),
-            __('Attached is the file with attempts blocked by the anti-spam filter.', 'digitalezen-cf7-antispam'),
+            __('Weekly CF7 report - Blocked spam', 'digitalezen-cf7-antispam-shield'),
+            __('Attached is the file with attempts blocked by the anti-spam filter.', 'digitalezen-cf7-antispam-shield'),
             ['Content-Type: text/plain; charset=UTF-8'],
             [$path]
         );

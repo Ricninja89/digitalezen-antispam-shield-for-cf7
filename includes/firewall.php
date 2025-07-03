@@ -26,7 +26,7 @@ add_action('init', function () {
 	        // Se l'IP corrente è bloccato → fermalo
 	        if ($ip === $blocked_ip) {
 	            header('HTTP/1.1 403 Forbidden');
-                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-cf7-antispam'));
+                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-cf7-antispam-shield'));
 	        }
 	    }
 	}

@@ -20,21 +20,21 @@ if (
     ! wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'dz_cf7_view_json')
 ) {
     http_response_code(403);
-    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam'));
+    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam-shield'));
 }
 
 $file_key = sanitize_text_field(wp_unslash($_GET['f']));
 
 if (! isset($whitelist[$file_key])) {
     http_response_code(403);
-    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam'));
+    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam-shield'));
 }
 
 $file_path = $whitelist[$file_key];
 
 if (! file_exists($file_path)) {
     http_response_code(404);
-    exit(esc_html__('❌ File not found.', 'digitalezen-cf7-antispam'));
+    exit(esc_html__('❌ File not found.', 'digitalezen-cf7-antispam-shield'));
 }
 
 // Inizializza wp_filesystem se necessario

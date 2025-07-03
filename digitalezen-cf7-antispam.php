@@ -9,7 +9,7 @@
  * Author: DigitaleZen
  * Author URI: https://digitalezen.it
  * License: MIT
- * Text Domain: digitalezen-cf7-antispam
+ * Text Domain: digitalezen-cf7-antispam-shield
  */
 
 defined('ABSPATH') || exit;

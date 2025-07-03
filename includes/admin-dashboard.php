@@ -9,8 +9,8 @@
 // 🔧 Aggiunge la voce di menu in admin
 add_action('admin_menu', function () {
 	add_menu_page(
-	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam'),
-	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam'),
+	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam-shield'),
+	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam-shield'),
 	    'manage_options',
 	    'cf7-antispam',
 	    'dz_cf7_render_dashboard',
@@ -42,7 +42,7 @@ function dz_cf7_render_dashboard()
             sprintf(
                 '<img src="%1$s" alt="%2$s" style="max-width: 100%%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">',
                 esc_url( $banner_url ),
-                esc_attr__( 'Banner DigitaleZen', 'digitalezen-cf7-antispam' )
+                esc_attr__('Banner DigitaleZen', 'digitalezen-cf7-antispam-shield')
             ),
             array(
                 'img' => array(

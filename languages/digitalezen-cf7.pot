@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-02T15:08:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Domain: digitalezen-cf7\n"
+"X-Domain: digitalezen-cf7-antispam-shield\n"
 
 #. Plugin Name of the plugin
 #: digitalezen-cf7-antispam.php
