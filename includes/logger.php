@@ -15,8 +15,8 @@ function dz_cf7_log_spam($reason, $data, $log_path, $trigger = '')
 	}
 
 	$email = sanitize_email($data['your-email'] ?? 'unknown');
-	$ip    = sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? 'unknown');
-	$row = [date('Y-m-d H:i:s'), $email, $ip, $reason, $trigger];
+	$ip    = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
+	$row = [gmdate('Y-m-d H:i:s'), $email, $ip, $reason, $trigger];
 	$line = implode(',', array_map('dz_cf7_csv_escape', $row)) . "\n";
 	file_put_contents($log_path, $line, FILE_APPEND);
 
@@ -83,8 +83,8 @@ function dz_cf7_send_spam_log_email()
 	// Invia email con allegato
         wp_mail(
             $email_destinatario,
-            __('Weekly CF7 report - Blocked spam', 'digitalezen-cf7'),
-            __('Attached is the file with attempts blocked by the anti-spam filter.', 'digitalezen-cf7'),
+            __('Weekly CF7 report - Blocked spam', 'digitalezen-cf7-antispam'),
+            __('Attached is the file with attempts blocked by the anti-spam filter.', 'digitalezen-cf7-antispam'),
             ['Content-Type: text/plain; charset=UTF-8'],
             [$path]
         );

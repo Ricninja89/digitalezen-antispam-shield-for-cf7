@@ -21,15 +21,15 @@ function dz_cf7_anti_spam_guard($cf7)
 
 	// 🧪 Token form anti-bot
 	$form_id = $cf7->id();
-	$hour_now = date('YmdH');
-	$hour_prev = date('YmdH', strtotime('-1 hour'));
+	$hour_now = gmdate('YmdH');
+	$hour_prev = gmdate('YmdH', time() - 3600);
 	$valid_token_now = hash('sha256', "form-$form_id::$hour_now");
 	$valid_token_prev = hash('sha256', "form-$form_id::$hour_prev");
 	$submitted_token = $data['form-token'] ?? '';
 
 	if ($submitted_token !== $valid_token_now && $submitted_token !== $valid_token_prev) {
 	    dz_cf7_log_spam('token_scaduto', $data, $log_path);
-            $submission->set_response(__('⏳ Session expired. Refresh the page and try again.', 'digitalezen-cf7'));
+            $submission->set_response(__('⏳ Session expired. Refresh the page and try again.', 'digitalezen-cf7-antispam'));
 	    $cf7->skip_mail = true;
 	    return;
 	}
@@ -52,7 +52,7 @@ function dz_cf7_anti_spam_guard($cf7)
 	$blocked_usernames = $json['usernames'] ?? [];
 	$blocked_keywords = $json['keywords'] ?? [];
 
-	$client_ip = sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? '');
+	$client_ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 	$email     = sanitize_email($data['your-email'] ?? '');
 	$domain = ($email && strpos($email, '@') !== false) ? strtolower(substr(strrchr($email, "@"), 1)) : '';
 
@@ -106,7 +106,7 @@ add_filter('wpcf7_validate', function($result, $tags) {
 	$t0 = strtotime($data['timestamp'] ?? 'now');
 	$t1 = time();
 	if (($t1 - $t0) < 4) {
-            $result->invalidate('*', __('Please do not submit so quickly.', 'digitalezen-cf7'));
+            $result->invalidate('*', __('Please do not submit so quickly.', 'digitalezen-cf7-antispam'));
 	}
 	return $result;
 }, 10, 2);
@@ -115,7 +115,7 @@ add_filter('wpcf7_validate', function($result, $tags) {
 add_filter('wpcf7_form_hidden_fields', function($hidden_fields) {
     $contact_form = WPCF7_ContactForm::get_current();
     $form_id = $contact_form ? $contact_form->id() : 'unknown';
-	$hour = date('YmdH');
+	$hour = gmdate('YmdH');
 	$token = hash('sha256', "form-$form_id::$hour");
 	$hidden_fields['form-token'] = $token;
 	return $hidden_fields;
