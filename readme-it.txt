@@ -1,15 +1,15 @@
 === DigitaleZen CF7 AntiSpam Shield ===
 Contributors: digitalezen, Riccardo Rosignoli
 Donate link: https://digitalezen.it
-Tags: contact form 7, spam, anti-spam, firewall, honeypot, blacklist, email protection, token, no captcha
+Tags: contact form 7, spam, firewall, blacklist, honeypot
 Requires at least: 5.6
-Tested up to: 6.5.2
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-Una protezione definitiva per Contact Form 7: blocca spam, bot e attacchi automatici con honeypot invisibile, token dinamici, firewall IP e blacklist aggiornate ogni 24h. Nessun CAPTCHA.
+Protegge Contact Form 7 con honeypot, token e blacklist aggiornate: zero CAPTCHA.
 
 == Description ==
 
