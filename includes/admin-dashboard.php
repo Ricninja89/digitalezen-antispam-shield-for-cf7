@@ -45,11 +45,12 @@ add_action('admin_init', function () {
 	$action = isset($_GET['action']) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
 	$file   = isset($_GET['f']) ? sanitize_text_field( wp_unslash( $_GET['f'] ) ) : '';
 
-	if ($action === 'dz_cf7_view_json' && $file) {
-	    $_GET['f'] = $file;
-	    include_once DZ_CF7_DIR . 'includes/view-json.php';
-	    exit;
-	}
+        if ($action === 'dz_cf7_view_json' && $file) {
+            check_admin_referer('dz_cf7_view_json');
+            $_GET['f'] = $file;
+            include_once DZ_CF7_DIR . 'includes/view-json.php';
+            exit;
+        }
 });
 
 // 📊 Enqueue degli script solo nella pagina CF7 AntiSpam
