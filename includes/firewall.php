@@ -8,7 +8,7 @@
 
 // 🔒 BLOCCO IP – Hook INIT
 add_action('init', function () {
-	$ip  = sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? '');
+	$ip  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 	$file = WP_CONTENT_DIR . '/block-ip.txt';
 
 	if (!file_exists($file)) return;
@@ -26,7 +26,7 @@ add_action('init', function () {
 	        // Se l'IP corrente è bloccato → fermalo
 	        if ($ip === $blocked_ip) {
 	            header('HTTP/1.1 403 Forbidden');
-                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-cf7'));
+                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-cf7-antispam'));
 	        }
 	    }
 	}

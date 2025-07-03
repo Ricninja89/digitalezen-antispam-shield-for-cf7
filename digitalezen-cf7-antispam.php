@@ -9,7 +9,7 @@
  * Author: DigitaleZen
  * Author URI: https://digitalezen.it
  * License: MIT
- * Text Domain: digitalezen-cf7
+ * Text Domain: digitalezen-cf7-antispam
  */
 
 defined('ABSPATH') || exit;
@@ -27,8 +27,19 @@ require_once DZ_CF7_DIR . 'includes/admin-dashboard.php';
 
 // Carica assets per l’admin
 add_action('admin_enqueue_scripts', function($hook) {
-	if (strpos($hook, 'cf7-antispam') !== false) {
-	    wp_enqueue_style('dz-cf7-style', DZ_CF7_URL . 'assets/style.css');
-	    wp_enqueue_script('dz-cf7-script', DZ_CF7_URL . 'assets/script.js', [], false, true);
-	}
+        if (strpos($hook, 'cf7-antispam') !== false) {
+            wp_enqueue_style(
+                'dz-cf7-style',
+                DZ_CF7_URL . 'assets/style.css',
+                [],
+                filemtime(DZ_CF7_DIR . 'assets/style.css')
+            );
+            wp_enqueue_script(
+                'dz-cf7-script',
+                DZ_CF7_URL . 'assets/script.js',
+                [],
+                filemtime(DZ_CF7_DIR . 'assets/script.js'),
+                true
+            );
+        }
 });

@@ -3,7 +3,7 @@ Contributors: digitalezen, Riccardo Rosignoli
 Donate link: https://digitalezen.it  
 Tags: contact form 7, spam, anti-spam, firewall, honeypot, blacklist, email protection, token, no captcha  
 Requires at least: 5.6  
-Tested up to: 6.5.2  
+Tested up to: 6.8  
 Requires PHP: 7.4  
 Stable tag: 1.0.0  
 License: MIT  
