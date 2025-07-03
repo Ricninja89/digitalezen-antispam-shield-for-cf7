@@ -33,25 +33,38 @@ add_action('admin_init', function () {
 function dz_cf7_render_dashboard()
 {
 	// 📸 Banner e logo nella parte alta della dashboard
-	echo '<div style="text-align: center; padding: 20px 0;">';
-        echo '<img src="' . esc_url(DZ_CF7_URL . 'assets/img/banner2.png') . '" alt="' . esc_attr__('Banner DigitaleZen', 'digitalezen-cf7-antispam') . '" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">';
-	echo '</div>';
+        echo '<div style="text-align: center; padding: 20px 0;">';
+        $banner_url = plugins_url( 'assets/img/banner2.png', dirname( __DIR__ ) . '/digitalezen-cf7-antispam.php' );
+        echo wp_kses(
+            sprintf(
+                '<img src="%1$s" alt="%2$s" style="max-width: 100%%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">',
+                esc_url( $banner_url ),
+                esc_attr__( 'Banner DigitaleZen', 'digitalezen-cf7-antispam' )
+            ),
+            array(
+                'img' => array(
+                    'src'   => array(),
+                    'alt'   => array(),
+                    'style' => array(),
+                ),
+            )
+        );
+        echo '</div>';
 
 	include DZ_CF7_DIR . 'templates/dashboard.php';
 }
 
 // 🔍 Permette la visualizzazione di file JSON direttamente dal backend
-add_action('admin_init', function () {
-	$action = isset($_GET['action']) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
-	$file   = isset($_GET['f']) ? sanitize_text_field( wp_unslash( $_GET['f'] ) ) : '';
-
-        if ($action === 'dz_cf7_view_json' && $file) {
-            check_admin_referer('dz_cf7_view_json');
+add_action( 'admin_init', function () {
+    if ( isset( $_GET['action'], $_GET['f'], $_GET['_wpnonce'] ) && 'dz_cf7_view_json' === $_GET['action'] ) {
+        if ( wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'dz_cf7_view_json' ) ) {
+            $file       = sanitize_text_field( wp_unslash( $_GET['f'] ) );
             $_GET['f'] = $file;
             include_once DZ_CF7_DIR . 'includes/view-json.php';
             exit;
         }
-});
+    }
+} );
 
 // 📊 Enqueue degli script solo nella pagina CF7 AntiSpam
 add_action('admin_enqueue_scripts', function ($hook) {

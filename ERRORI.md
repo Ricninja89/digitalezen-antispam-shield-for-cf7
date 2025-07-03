@@ -125,21 +125,20 @@ Line	Column	Type	Code	Message
 
 FILE: C:\Users\ricca\Local Sites\test-cf7-antispam\app\public\wp-content\plugins\digitalezen-cf7-antispam\includes\view-json.php
 Line	Column	Type	Code	Message
-30	1	ERROR	WordPress.WP.AlternativeFunctions.file_system_operations_readfile	File operations should use WP_Filesystem methods instead of direct PHP filesystem calls. Found: readfile().
-16	19	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
-16	53	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 30	1	ERROR	WordPress.WP.AlternativeFunctions.file_system_operations_readfile	File operations should use WP_Filesystem methods instead of direct PHP filesystem calls. Found: readfile().
+[RISOLTO] 16	19	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 16	53	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
 [RISOLTO] 16	53	WARNING	WordPress.Security.ValidatedSanitizedInput.MissingUnslash	$_GET['f'] not unslashed before sanitization. Use wp_unslash() or similar
 
 FILE: C:\Users\ricca\Local Sites\test-cf7-antispam\app\public\wp-content\plugins\digitalezen-cf7-antispam\includes\admin-dashboard.php
 Line	Column	Type	Code	Message
 [RISOLTO] 25	30	WARNING	WordPress.Security.ValidatedSanitizedInput.MissingUnslash	$_POST['dz_cf7_log_email'] not unslashed before sanitization. Use wp_unslash() or similar
-45	18	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
-45	57	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 45	18	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 45	57	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
 [RISOLTO] 45	57	WARNING	WordPress.Security.ValidatedSanitizedInput.MissingUnslash	$_GET['action'] not unslashed before sanitization. Use wp_unslash() or similar
-46	18	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
-46	52	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 46	18	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
+[RISOLTO] 46	52	WARNING	WordPress.Security.NonceVerification.Recommended	Processing form data without nonce verification.
 [RISOLTO] 46	52	WARNING	WordPress.Security.ValidatedSanitizedInput.MissingUnslash	$_GET['f'] not unslashed before sanitization. Use wp_unslash() or similar
-
 FILE: C:\Users\ricca\Local Sites\test-cf7-antispam\app\public\wp-content\plugins\digitalezen-cf7-antispam\includes\firewall.php
 Line	Column	Type	Code	Message
 [RISOLTO] 11	29	WARNING	WordPress.Security.ValidatedSanitizedInput.MissingUnslash	$_SERVER['REMOTE_ADDR'] not unslashed before sanitization. Use wp_unslash() or similar
@@ -161,13 +160,12 @@ Learn more (opens in a new tab)	View in code editor (opens in a new tab)
 [RISOLTO] 0	0	ERROR	outdated_tested_upto_header	Tested up to: 6.5 < 6.8.
 [RISOLTO] The "Tested up to" value in your plugin is not set to the current version of WordPress. This means your plugin will not show up in searches, as we require plugins to be compatible and documented as tested up to the most recent version of WordPress.
 Learn more (opens in a new tab)	View in code editor (opens in a new tab)
-0	0	WARNING	readme_parser_warnings_too_many_tags	One or more tags were ignored. Please limit your plugin to 5 tags.	View in code editor (opens in a new tab)
-0	0	WARNING	readme_parser_warnings_trimmed_short_description	The "Short Description" section is too long and was truncated. A maximum of 150 characters is supported.	View in code editor (opens in a new tab)
+[RISOLTO] 0	0	WARNING	readme_parser_warnings_too_many_tags	One or more tags were ignored. Please limit your plugin to 5 tags.	View in code editor (opens in a new tab)
+[RISOLTO] 0	0	WARNING	readme_parser_warnings_trimmed_short_description	The "Short Description" section is too long and was truncated. A maximum of 150 characters is supported.	View in code editor (opens in a new tab)
 
 FILE: C:\Users\ricca\Local Sites\test-cf7-antispam\app\public\wp-content\plugins\digitalezen-cf7-antispam\includes\admin-dashboard.php
 Line	Column	Type	Code	Message
 [RISOLTO] 62	9	ERROR	PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent	Found call to wp_enqueue_script() with external resource. Offloading scripts to your servers or any remote service is disallowed.
-
 FILE: C:\Users\ricca\Local Sites\test-cf7-antispam\app\public\wp-content\plugins\digitalezen-cf7-antispam\includes\admin-dashboard.php
 Line	Column	Type	Code	Message
-37	14	WARNING	PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage	Images should be added using wp_get_attachment_image() or similar functions
+[RISOLTO] 37	14	WARNING	PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage	Images should be added using wp_get_attachment_image() or similar functions

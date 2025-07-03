@@ -13,9 +13,14 @@ $whitelist = [
 	'email-attempts.json'=> WP_CONTENT_DIR . '/email-attempts.json',
 ];
 
-$file_key = isset($_GET['f']) ? sanitize_text_field($_GET['f']) : '';
-check_admin_referer('dz_cf7_view_json');
-if (!isset($whitelist[$file_key])) {
+$file_key = '';
+if ( ! isset( $_GET['f'], $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'dz_cf7_view_json' ) ) {
+    http_response_code( 403 );
+    exit( esc_html__( '⛔ Unauthorized access.', 'digitalezen-cf7-antispam' ) );
+}
+
+$file_key = sanitize_text_field( wp_unslash( $_GET['f'] ) );
+if ( ! isset( $whitelist[ $file_key ] ) ) {
         http_response_code(403);
     exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam'));
 }
