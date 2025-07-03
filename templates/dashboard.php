@@ -116,11 +116,14 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	            <td>
 	                <a
 	                    href="<?php
-	                        echo esc_url(
-	                            admin_url(
-	                                'admin-ajax.php?action=dz_cf7_view_json&f=cf7-blacklist.json'
-	                            )
-	                        );
+                                echo esc_url(
+                                    wp_nonce_url(
+                                        admin_url(
+                                            'admin-ajax.php?action=dz_cf7_view_json&f=cf7-blacklist.json'
+                                        ),
+                                        'dz_cf7_view_json'
+                                    )
+                                );
 	                    ?>"
 	                    class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-cf7-antispam'); ?>
@@ -159,11 +162,14 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	            <td>
 	                <a
 	                    href="<?php
-	                        echo esc_url(
-	                            admin_url(
-	                                'admin-ajax.php?action=dz_cf7_view_json&f=ip-attempts.json'
-	                            )
-	                        );
+                                echo esc_url(
+                                    wp_nonce_url(
+                                        admin_url(
+                                            'admin-ajax.php?action=dz_cf7_view_json&f=ip-attempts.json'
+                                        ),
+                                        'dz_cf7_view_json'
+                                    )
+                                );
 	                    ?>"
 	                    class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-cf7-antispam'); ?>
@@ -181,11 +187,14 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	            <td>
 	                <a
 	                    href="<?php
-	                        echo esc_url(
-	                            admin_url(
-	                                'admin-ajax.php?action=dz_cf7_view_json&f=email-attempts.json'
-	                            )
-	                        );
+                                echo esc_url(
+                                    wp_nonce_url(
+                                        admin_url(
+                                            'admin-ajax.php?action=dz_cf7_view_json&f=email-attempts.json'
+                                        ),
+                                        'dz_cf7_view_json'
+                                    )
+                                );
 	                    ?>"
 	                    class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-cf7-antispam'); ?>

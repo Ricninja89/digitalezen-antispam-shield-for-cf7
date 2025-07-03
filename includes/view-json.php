@@ -14,8 +14,9 @@ $whitelist = [
 ];
 
 $file_key = isset($_GET['f']) ? sanitize_text_field($_GET['f']) : '';
+check_admin_referer('dz_cf7_view_json');
 if (!isset($whitelist[$file_key])) {
-	http_response_code(403);
+        http_response_code(403);
     exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam'));
 }
 
@@ -27,5 +28,10 @@ if (!file_exists($file_path)) {
 }
 
 header("Content-Type: text/plain; charset=UTF-8");
-readfile($file_path);
+global $wp_filesystem;
+if (empty($wp_filesystem)) {
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    WP_Filesystem();
+}
+echo $wp_filesystem->get_contents($file_path);
 exit;
