@@ -21,12 +21,15 @@ add_action('admin_menu', function () {
 
 // 💾 Salva le impostazioni dal form
 add_action('admin_init', function () {
-	if (isset($_POST['dz_cf7_settings_submit']) && check_admin_referer('dz_cf7_save_settings')) {
-	    $email = sanitize_email( wp_unslash( $_POST['dz_cf7_log_email'] ) ?? '');
-	    if (is_email($email)) {
-	        update_option('dz_cf7_log_email', $email);
-	    }
-	}
+    if (
+        isset($_POST['dz_cf7_settings_submit'], $_POST['dz_cf7_log_email']) &&
+        check_admin_referer('dz_cf7_save_settings')
+    ) {
+        $email = sanitize_email( wp_unslash( $_POST['dz_cf7_log_email'] ) );
+        if ( is_email( $email ) ) {
+            update_option( 'dz_cf7_log_email', $email );
+        }
+    }
 });
 
 // 📄 Mostra la dashboard (carica template)
