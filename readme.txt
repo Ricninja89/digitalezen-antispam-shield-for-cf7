@@ -1,4 +1,4 @@
-=== DigitaleZen CF7 AntiSpam Shield ===
+=== DigitaleZen AntiSpam Shield for CF7 ===
 Contributors: digitalezen, Riccardo Rosignoli  
 Donate link: https://digitalezen.it  
 Tags: contact form 7, spam, firewall, blacklist, honeypot  
@@ -13,7 +13,7 @@ The ultimate shield for Contact Form 7. Blocks spam with honeypots, tokens and a
 
 == Description ==
 
-🛡️ *DigitaleZen CF7 AntiSpam Shield* is a lightweight yet powerful plugin that protects **Contact Form 7** forms from spam, bots, and suspicious submissions.
+🛡️ *DigitaleZen AntiSpam Shield for CF7* is a lightweight yet powerful plugin that protects **Contact Form 7** forms from spam, bots, and suspicious submissions.
 
 It combines a **multi-layered defense system**, including:
 
