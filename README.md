@@ -1,4 +1,4 @@
-# 🛡️ DigitaleZen CF7 AntiSpam Shield
+# 🛡️ DigitaleZen AntiSpam Shield for CF7
 
 ![WordPress](https://img.shields.io/badge/WordPress-5.6%2B-blue?logo=wordpress)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-orange?logo=php)
