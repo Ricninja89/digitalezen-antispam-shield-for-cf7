@@ -1,9 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * File Name: firewall.php
- * Plugin Name: DigitaleZen CF7 AntiSpam Shield
- * Autore: DigitaleZen
- * Licenza: MIT
+ * Plugin Name: DigitaleZen AntiSpam Shield for CF7
+ * Author: DigitaleZen
+ * License: GPLv2 or later
  */
 
 // 🔒 BLOCCO IP – Hook INIT
@@ -26,7 +27,7 @@ add_action('init', function () {
 	        // Se l'IP corrente è bloccato → fermalo
 	        if ($ip === $blocked_ip) {
 	            header('HTTP/1.1 403 Forbidden');
-                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-cf7-antispam-shield'));
+                exit(esc_html__('⛔ Access temporarily blocked due to suspicious behavior.', 'digitalezen-antispam-shield-for-cf7'));
 	        }
 	    }
 	}

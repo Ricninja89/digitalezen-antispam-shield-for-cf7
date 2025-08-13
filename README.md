@@ -2,7 +2,7 @@
 
 ![WordPress](https://img.shields.io/badge/WordPress-5.6%2B-blue?logo=wordpress)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-orange?logo=php)
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![License: GPLv2 or later](https://img.shields.io/badge/License-GPLv2%20or%20later-blue.svg)
 [![Donate](https://img.shields.io/badge/☕-Buy%20me%20a%20tea-blue)](https://digitalezen.it)
 
 > **The ultimate shield for Contact Form 7** — no CAPTCHA, no hassle. Multi-layered protection with blacklist, IP firewall, dynamic tokens and spam reporting.
@@ -27,7 +27,7 @@
 
 ## 🚀 Out-of-the-box protection
 
-DigitaleZen CF7 AntiSpam Shield is designed to **work instantly** without any complex configuration. It protects your forms silently and effectively — even **without reCaptcha**.
+DigitaleZen AntiSpam Shield for CF7 is designed to **work instantly** without any complex configuration. It protects your forms silently and effectively — even **without reCaptcha**.
 
 ✔️ No user friction  
 ✔️ No cloud services  
@@ -40,7 +40,7 @@ DigitaleZen CF7 AntiSpam Shield is designed to **work instantly** without any co
 
 1. Upload the plugin to `/wp-content/plugins/`
 2. Activate via **Plugins > Installed**
-3. Visit **Settings > CF7 AntiSpam Shield** to check logs and copy optional shortcodes
+3. Visit **Settings > DigitaleZen AntiSpam Shield for CF7** to check logs and copy optional shortcodes
 
 ---
 

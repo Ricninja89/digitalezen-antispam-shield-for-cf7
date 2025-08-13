@@ -1,16 +1,17 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * File Name: admin-dashboard.php
- * Plugin Name: DigitaleZen CF7 AntiSpam Shield
- * Autore: DigitaleZen
- * Licenza: MIT
+ * Plugin Name: DigitaleZen AntiSpam Shield for CF7
+ * Author: DigitaleZen
+ * License: GPLv2 or later
  */
 
 // 🔧 Aggiunge la voce di menu in admin
 add_action('admin_menu', function () {
 	add_menu_page(
-	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam-shield'),
-	    __('CF7 AntiSpam', 'digitalezen-cf7-antispam-shield'),
+            __('CF7 AntiSpam', 'digitalezen-antispam-shield-for-cf7'),
+            __('CF7 AntiSpam', 'digitalezen-antispam-shield-for-cf7'),
 	    'manage_options',
 	    'cf7-antispam',
 	    'dz_cf7_render_dashboard',
@@ -37,12 +38,12 @@ function dz_cf7_render_dashboard()
 {
 	// 📸 Banner e logo nella parte alta della dashboard
         echo '<div style="text-align: center; padding: 20px 0;">';
-        $banner_url = plugins_url( 'assets/img/banner2.png', dirname( __DIR__ ) . '/digitalezen-cf7-antispam.php' );
+        $banner_url = plugins_url( 'assets/img/banner2.png', dirname( __DIR__ ) . '/digitalezen-antispam-shield-for-cf7.php' );
         echo wp_kses(
             sprintf(
                 '<img src="%1$s" alt="%2$s" style="max-width: 100%%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">',
                 esc_url( $banner_url ),
-                esc_attr__('Banner DigitaleZen', 'digitalezen-cf7-antispam-shield')
+                esc_attr__('Banner DigitaleZen', 'digitalezen-antispam-shield-for-cf7')
             ),
             array(
                 'img' => array(

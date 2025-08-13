@@ -1,7 +1,9 @@
 === DigitaleZen AntiSpam Shield for CF7 ===
-Contributors: digitalezen, Riccardo Rosignoli  
-Donate link: https://digitalezen.it  
-Tags: contact form 7, spam, firewall, blacklist, honeypot  
+Contributors: digitalezen, Riccardo Rosignoli
+Donate link: https://digitalezen.it
+Author: DigitaleZen
+Author URI: https://digitalezen.it
+Tags: contact form 7, spam, firewall, blacklist, honeypot
 Requires at least: 5.6  
 Tested up to: 6.8  
 Requires PHP: 7.4  
@@ -55,7 +57,7 @@ It combines a **multi-layered defense system**, including:
 
 1. Upload the plugin folder to `/wp-content/plugins/`  
 2. Activate the plugin via “Plugins > Installed”  
-3. Go to **Settings > CF7 AntiSpam Shield** to view data and copy optional shortcodes
+3. Go to **Settings > DigitaleZen AntiSpam Shield for CF7** to view data and copy optional shortcodes
 
 == Frequently Asked Questions ==
 
