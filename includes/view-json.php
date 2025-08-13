@@ -1,12 +1,11 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * File Name: view-json.php
- * Plugin Name: DigitaleZen CF7 AntiSpam Shield
+ * Plugin Name: DigitaleZen AntiSpam Shield for CF7
  * Author: DigitaleZen
- * License: MIT
+ * License: GPLv2 or later
  */
-
-defined('ABSPATH') || exit;
 
 // Sicurezza: accetta solo nomi autorizzati
 $whitelist = [
@@ -20,21 +19,21 @@ if (
     ! wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'dz_cf7_view_json')
 ) {
     http_response_code(403);
-    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam-shield'));
+    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-antispam-shield-for-cf7'));
 }
 
 $file_key = sanitize_text_field(wp_unslash($_GET['f']));
 
 if (! isset($whitelist[$file_key])) {
     http_response_code(403);
-    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-cf7-antispam-shield'));
+    exit(esc_html__('⛔ Unauthorized access.', 'digitalezen-antispam-shield-for-cf7'));
 }
 
 $file_path = $whitelist[$file_key];
 
 if (! file_exists($file_path)) {
     http_response_code(404);
-    exit(esc_html__('❌ File not found.', 'digitalezen-cf7-antispam-shield'));
+    exit(esc_html__('❌ File not found.', 'digitalezen-antispam-shield-for-cf7'));
 }
 
 // Inizializza wp_filesystem se necessario

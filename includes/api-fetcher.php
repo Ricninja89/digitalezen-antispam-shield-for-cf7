@@ -1,9 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * File Name: api-fetcher.php
- * Plugin Name: DigitaleZen CF7 AntiSpam Shield
- * Autore: DigitaleZen
- * Licenza: MIT
+ * Plugin Name: DigitaleZen AntiSpam Shield for CF7
+ * Author: DigitaleZen
+ * License: GPLv2 or later
  */
 
 // 🔁 Scarica la blacklist da Google Apps Script
