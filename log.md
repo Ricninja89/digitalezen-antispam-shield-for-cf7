@@ -8,7 +8,8 @@
 - Rimossi i riferimenti a `WP_CONTENT_DIR` e aggiornati i percorsi dei file nelle funzioni di logging, firewall e visualizzazione.
 - Sostituito lo slug admin generico con il costante `DZ_CF7_MENU_SLUG` per evitare conflitti.
 - Corrette le chiamate a `json_encode` sostituendole con `wp_json_encode`.
+- Verificato che tutte le correzioni richieste da WordPress.org siano presenti nel codice attuale.
 
 ### Correzioni mancanti / da verificare
-- Rieseguire Plugin Check e WPCS per individuare eventuali altri avvisi o text-domain non uniformi.
+- Completare l'installazione di WPCS/Plugin Check per eseguire una scansione completa (alcuni sniff mancanti).
 - Valutare ulteriori controlli di sanitizzazione/escaping su tutto il codice.
