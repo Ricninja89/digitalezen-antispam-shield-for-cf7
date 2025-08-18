@@ -22,8 +22,8 @@ jobs:
           # Pin versioni compatibili con PHPCS 3.x
           git clone --branch 3.0.1 --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
           git clone --branch 1.0.9 --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git PHPCSUtils
-          git clone --branch 1.2.1 --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
-          # ↑ 1.x = compat con PHPCS 3.x e fornisce lo standard "Universal"
+          git clone --branch 1.0.2 --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
+          # ↑ 1.0.x = compat con PHPCS 3.x e fornisce lo standard "Universal"
           php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSExtra,$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
           php phpcs.phar -i
       - name: Run PHPCS
