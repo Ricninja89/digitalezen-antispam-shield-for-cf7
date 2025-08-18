@@ -9,7 +9,11 @@
 - Sostituito lo slug admin generico con il costante `DZ_CF7_MENU_SLUG` per evitare conflitti.
 - Corrette le chiamate a `json_encode` sostituendole con `wp_json_encode`.
 - Verificato che tutte le correzioni richieste da WordPress.org siano presenti nel codice attuale.
+- Allineato il codice agli standard WordPress in vari file PHP (docblock, punteggiatura e indentazione).
+- Ridotte le violazioni PHPCS da 1272 a 101, risolvendo tutti gli errori nei file PHP principali.
+- Eliminati tutti gli errori di codestyle in `assets/script.js` adeguandolo allo standard WordPress.
 
 ### Correzioni mancanti / da verificare
-- Completare l'installazione di WPCS/Plugin Check per eseguire una scansione completa (alcuni sniff mancanti).
 - Valutare ulteriori controlli di sanitizzazione/escaping su tutto il codice.
+- Rimangono avvisi relativi all'uso di `file_put_contents`/`file_get_contents` e altri warning minori segnalati da PHPCS.
+

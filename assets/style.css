@@ -1,71 +1,71 @@
 /* DigitaleZen CF7 AntiSpam - Admin UI */
 
 .wrap h1 {
-    font-size: 2.2em;
-    color: #333;
-    font-weight: 600;
-    margin-top: 1em;
+	font-size: 2.2em;
+	color: #333;
+	font-weight: 600;
+	margin-top: 1em;
 }
 
 .wrap h2 {
-    font-size: 1.4em;
-    color: #222;
-    border-left: 4px solid #008ec2;
-    padding-left: 10px;
-    margin-top: 2em;
-    margin-bottom: 1em;
+	font-size: 1.4em;
+	color: #222;
+	border-left: 4px solid #008ec2;
+	padding-left: 10px;
+	margin-top: 2em;
+	margin-bottom: 1em;
 }
 
 .wrap code {
-    background: #f2f2f2;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.95em;
+	background: #f2f2f2;
+	padding: 2px 6px;
+	border-radius: 3px;
+	font-size: 0.95em;
 }
 
 .wrap ul {
-    list-style: disc;
-    padding-left: 2em;
-    margin-bottom: 1em;
+	list-style: disc;
+	padding-left: 2em;
+	margin-bottom: 1em;
 }
 
 .wrap a {
-    color: #008ec2;
-    text-decoration: none;
+	color: #008ec2;
+	text-decoration: none;
 }
 
 .wrap a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 input[type="email"] {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 400px;
+	padding: 6px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 100%;
+	max-width: 400px;
 }
 
 .button-primary {
-    background: linear-gradient(to bottom, #008ec2, #006ba1);
-    border-color: #005b8c;
-    color: #fff;
-    text-shadow: none;
-    box-shadow: none;
+	background: linear-gradient(to bottom, #008ec2, #006ba1);
+	border-color: #005b8c;
+	color: #fff;
+	text-shadow: none;
+	box-shadow: none;
 }
 
 .button-primary:hover {
-    background: #007bbd;
-    border-color: #005b8c;
+	background: #007bbd;
+	border-color: #005b8c;
 }
 
 hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 2em 0;
+	border: none;
+	border-top: 1px solid #ddd;
+	margin: 2em 0;
 }
 
 small {
-    font-size: 0.85em;
-    color: #888;
+	font-size: 0.85em;
+	color: #888;
 }
