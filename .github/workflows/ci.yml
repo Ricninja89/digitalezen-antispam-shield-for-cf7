@@ -25,6 +25,7 @@ jobs:
           UTILS_DIR="$RUNNER_TEMP/PHPCSUtils"
           WPCS_DIR="$RUNNER_TEMP/wpcs"
 
+          # PHPCSExtra 1.2.x contiene lo standard "Universal.*" e supporta PHPCS 3
           git clone --depth=1 --branch 1.2.1 https://github.com/PHPCSStandards/PHPCSExtra.git "$EXTRA_DIR"
           git clone --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git "$UTILS_DIR"
           git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git "$WPCS_DIR"
@@ -32,15 +33,19 @@ jobs:
           php phpcs.phar --config-set installed_paths "$EXTRA_DIR,$UTILS_DIR,$WPCS_DIR"
           php phpcs.phar -i
 
+          # Esporta il path dell'autoload/back-compat di PHPCSUtils per usarlo con auto_prepend_file
+          echo "PHPCSUTILS_AUTOLOAD=$UTILS_DIR/phpcsutils-autoload.php" >> "$GITHUB_ENV"
+
       - name: Run PHPCS
         run: |
           set -e
+          AUTOPREPEND="-d auto_prepend_file=$PHPCSUTILS_AUTOLOAD"
           if [ -f phpcs.xml ] || [ -f phpcs.xml.dist ]; then
-            # usa la tua configurazione; ignora i soli warning ai fini dell'exit code
-            php phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
+            # usa la tua config; ignora i WARNING nell'exit code
+            php $AUTOPREPEND phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
           else
-            # fallback standard WordPress se non hai un phpcs.xml
-            php phpcs.phar -p --standard=WordPress --extensions=php \
+            # fallback WordPress se manca phpcs.xml
+            php $AUTOPREPEND phpcs.phar -p --standard=WordPress --extensions=php \
               --ignore=vendor/*,node_modules/*,assets/*,tests/*,.github/* \
               --report=summary .
           fi
