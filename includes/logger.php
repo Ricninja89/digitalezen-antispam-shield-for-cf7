@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Registra tentativi di spam.
  *
  * @param string $reason  Motivo del blocco.
- * @param array	 $data	  Dati inviati.
+ * @param array  $data    Dati inviati.
  * @param string $log_path Percorso del file di log.
  * @param string $trigger  Informazione aggiuntiva.
  */
@@ -25,7 +25,7 @@ function dz_cf7_log_spam( $reason, $data, $log_path, $trigger = '' ) {
 	}
 
 	$email = sanitize_email( $data['your-email'] ?? 'unknown' );
-	$ip	   = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
+	$ip    = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
 	$row   = array( gmdate( 'Y-m-d H:i:s' ), $email, $ip, $reason, $trigger );
 	$line  = implode( ',', array_map( 'dz_cf7_csv_escape', $row ) ) . "\n";
 	dz_cf7_fs_append( $log_path, $line );
@@ -34,7 +34,7 @@ function dz_cf7_log_spam( $reason, $data, $log_path, $trigger = '' ) {
 	if ( ! file_exists( DZ_CF7_UPLOAD_DIR ) ) {
 		wp_mkdir_p( DZ_CF7_UPLOAD_DIR );
 	}
-		$blockfile	 = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
+		$blockfile   = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 		$block_until = time() + 600; // 10 minuti.
 	dz_cf7_fs_append( $blockfile, "$ip|$block_until\n" );
 
@@ -55,13 +55,13 @@ function dz_cf7_csv_escape( $value ) {
 /**
  * Controlla se un IP o email hanno superato il limite di invii.
  *
- * @param string $ip	Indirizzo IP.
+ * @param string $ip    Indirizzo IP.
  * @param string $email Email.
  * @return bool
  */
 function dz_cf7_check_flood( $ip, $email ) {
 		$window = 900; // 15 minuti.
-	$limit		= 3;
+	$limit      = 3;
 
 		$base_dir = DZ_CF7_UPLOAD_DIR;
 	if ( ! file_exists( $base_dir ) ) {
@@ -75,7 +75,7 @@ function dz_cf7_check_flood( $ip, $email ) {
 
 	$now = time();
 
-	$ip_attempts[ $ip ]	  = array_filter( $ip_attempts[ $ip ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
+	$ip_attempts[ $ip ]   = array_filter( $ip_attempts[ $ip ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
 	$ip_attempts[ $ip ][] = $now;
 
 	$mail_attempts[ $email ]   = array_filter( $mail_attempts[ $email ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
@@ -90,7 +90,7 @@ function dz_cf7_check_flood( $ip, $email ) {
 /**
  * Funzione placeholder per compatibilità futura.
  *
- * @param string $ip	Indirizzo IP.
+ * @param string $ip    Indirizzo IP.
  * @param string $email Email.
  */
 function dz_cf7_track_attempts( $ip, $email ) {

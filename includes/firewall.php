@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'init',
 	function () {
-		$ip	  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		$ip   = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 		$file = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 
 		if ( ! file_exists( $file ) ) {
@@ -24,7 +24,7 @@ add_action(
 		if ( false === $contents ) {
 			return;
 		}
-		$lines	   = array_filter( array_map( 'trim', explode( "\n", $contents ) ) );
+		$lines     = array_filter( array_map( 'trim', explode( "\n", $contents ) ) );
 		$new_lines = array();
 
 		foreach ( $lines as $line ) {

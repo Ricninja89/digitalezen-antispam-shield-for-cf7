@@ -23,15 +23,15 @@ function dz_cf7_anti_spam_guard( $cf7 ) {
 		return;
 	}
 
-		$data		= $submission->get_posted_data();
+		$data       = $submission->get_posted_data();
 		$upload_dir = DZ_CF7_UPLOAD_DIR;
-		$log_path	= $upload_dir . 'cf7-spam-log.csv';
-		$json_path	= $upload_dir . 'cf7-blacklist.json';
+		$log_path   = $upload_dir . 'cf7-spam-log.csv';
+		$json_path  = $upload_dir . 'cf7-blacklist.json';
 
 		// Token form anti-bot.
-	$form_id		  = $cf7->id();
-	$hour_now		  = gmdate( 'YmdH' );
-	$hour_prev		  = gmdate( 'YmdH', time() - 3600 );
+	$form_id          = $cf7->id();
+	$hour_now         = gmdate( 'YmdH' );
+	$hour_prev        = gmdate( 'YmdH', time() - 3600 );
 	$valid_token_now  = hash( 'sha256', "form-$form_id::$hour_now" );
 	$valid_token_prev = hash( 'sha256', "form-$form_id::$hour_prev" );
 	$submitted_token  = $data['form-token'] ?? '';
@@ -59,15 +59,15 @@ function dz_cf7_anti_spam_guard( $cf7 ) {
 		return;
 	}
 
-	$blocked_ips	   = $json['ips'] ?? array();
-	$blocked_emails	   = $json['emails'] ?? array();
+	$blocked_ips       = $json['ips'] ?? array();
+	$blocked_emails    = $json['emails'] ?? array();
 	$blocked_domains   = $json['domains'] ?? array();
 	$blocked_usernames = $json['usernames'] ?? array();
 	$blocked_keywords  = $json['keywords'] ?? array();
 
 	$client_ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-	$email	   = sanitize_email( $data['your-email'] ?? '' );
-	$domain	   = ( $email && strpos( $email, '@' ) !== false ) ? strtolower( substr( strrchr( $email, '@' ), 1 ) ) : '';
+	$email     = sanitize_email( $data['your-email'] ?? '' );
+	$domain    = ( $email && strpos( $email, '@' ) !== false ) ? strtolower( substr( strrchr( $email, '@' ), 1 ) ) : '';
 
 	if ( in_array( $client_ip, $blocked_ips, true ) ) {
 		dz_cf7_log_spam( 'ip', $data, $log_path, $client_ip );
@@ -112,8 +112,8 @@ function dz_cf7_anti_spam_guard( $cf7 ) {
 
 // Controlla tempo di invio (almeno 4s).
 add_filter(
-		'wpcf7_validate',
-		function ( $result ) {
+	'wpcf7_validate',
+	function ( $result ) {
 		$submission = WPCF7_Submission::get_instance();
 		if ( ! $submission ) {
 			return $result;
@@ -128,20 +128,20 @@ add_filter(
 		return $result;
 	},
 	10,
-		1
+	1
 );
 
 // Genera token invisibile [form-token].
 add_filter(
 	'wpcf7_form_hidden_fields',
 	function ( $hidden_fields ) {
-		$contact_form				 = WPCF7_ContactForm::get_current();
-		$form_id					 = $contact_form ? $contact_form->id() : 'unknown';
-		$hour						 = gmdate( 'YmdH' );
-		$token						 = hash( 'sha256', "form-$form_id::$hour" );
+		$contact_form                = WPCF7_ContactForm::get_current();
+		$form_id                     = $contact_form ? $contact_form->id() : 'unknown';
+		$hour                        = gmdate( 'YmdH' );
+		$token                       = hash( 'sha256', "form-$form_id::$hour" );
 		$hidden_fields['form-token'] = $token;
 		return $hidden_fields;
 	},
 	10,
-		1
+	1
 );

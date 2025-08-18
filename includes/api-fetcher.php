@@ -18,7 +18,7 @@ function dz_cf7_update_blacklist_json() {
 		. 'Sh_-RhQsPzQvdDhDUe8IiJhD4OdExWMgwpKM8r5/exec';
 
 				$upload_dir = DZ_CF7_UPLOAD_DIR;
-				$path		= $upload_dir . 'cf7-blacklist.json';
+				$path       = $upload_dir . 'cf7-blacklist.json';
 
 				// Crea directory se non esiste.
 	if ( ! file_exists( $upload_dir ) ) {
