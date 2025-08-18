@@ -3,7 +3,7 @@ name: CI - PHPCS & PHPUnit (no Composer)
 on:
   push:
   pull_request:
-  workflow_dispatch:  # consente il run manuale da GitHub
+  workflow_dispatch:  # abilita il pulsante "Run workflow" su GitHub
 
 jobs:
   phpcs:
@@ -18,7 +18,8 @@ jobs:
       - name: Install PHPCS + WPCS deps
         run: |
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
-          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards/wpcs.git wpcs
+          # URL corretto del repo WPCS (senza /wpcs.git)
+          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
           git clone --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git PHPCSUtils
           git clone --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
           php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSExtra,$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
@@ -61,14 +62,18 @@ jobs:
           extensions: mysqli
           coverage: none
           tools: phpunit:9.6
-      - name: Install SVN
+      - name: Install SVN (serve allo script install-wp-tests)
         run: |
           sudo apt-get update
           sudo apt-get install -y subversion
+      - name: Prepare DB (drop & create to avoid prompts)
+        run: |
+          mysql -h 127.0.0.1 -uroot -proot -e 'DROP DATABASE IF EXISTS wordpress_test; CREATE DATABASE wordpress_test;'
       - name: Download & install WP test suite
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh
           chmod +x /tmp/install-wp-tests.sh
-          bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest
+          # Ultimo parametro "true" = salta la creazione DB (già fatta sopra), così evitiamo il prompt
+          bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest true
       - name: Run PHPUnit
         run: phpunit -v
