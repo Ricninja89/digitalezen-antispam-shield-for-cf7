@@ -11,43 +11,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           coverage: none
 
-      - name: Install PHPCS + WPCS deps (PHPCS 3.x compat)
+      - name: Install PHPCS + WPCS (solo WPCS, no PHPCSExtra)
         run: |
           set -e
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
 
-          EXTRA_DIR="$RUNNER_TEMP/PHPCSExtra"
-          UTILS_DIR="$RUNNER_TEMP/PHPCSUtils"
           WPCS_DIR="$RUNNER_TEMP/wpcs"
-
-          # PHPCSExtra 1.2.x contiene lo standard "Universal.*" e supporta PHPCS 3
-          git clone --depth=1 --branch 1.2.1 https://github.com/PHPCSStandards/PHPCSExtra.git "$EXTRA_DIR"
-          git clone --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git "$UTILS_DIR"
           git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git "$WPCS_DIR"
 
-          php phpcs.phar --config-set installed_paths "$EXTRA_DIR,$UTILS_DIR,$WPCS_DIR"
+          # registra lo standard WordPress in PHPCS
+          php phpcs.phar --config-set installed_paths "$WPCS_DIR"
           php phpcs.phar -i
-
-          # Esporta il path dell'autoload/back-compat di PHPCSUtils per usarlo con auto_prepend_file
-          echo "PHPCSUTILS_AUTOLOAD=$UTILS_DIR/phpcsutils-autoload.php" >> "$GITHUB_ENV"
 
       - name: Run PHPCS
         run: |
           set -e
-          AUTOPREPEND="-d auto_prepend_file=$PHPCSUTILS_AUTOLOAD"
+          # usa la tua config (phpcs.xml[.dist]); ignora i WARNING nell'exit code
           if [ -f phpcs.xml ] || [ -f phpcs.xml.dist ]; then
-            # usa la tua config; ignora i WARNING nell'exit code
-            php $AUTOPREPEND phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
+            php phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
           else
-            # fallback WordPress se manca phpcs.xml
-            php $AUTOPREPEND phpcs.phar -p --standard=WordPress --extensions=php \
+            # fallback, se manca la config
+            php phpcs.phar -p --standard=WordPress --extensions=php \
               --ignore=vendor/*,node_modules/*,assets/*,tests/*,.github/* \
-              --report=summary .
+              --report=summary --runtime-set ignore_warnings_on_exit 1 .
           fi
 
   phpunit:
