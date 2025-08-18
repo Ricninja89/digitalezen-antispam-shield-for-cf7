@@ -2,18 +2,14 @@
 <ruleset name="DigitaleZen CF7 Antispam">
   <description>WordPress coding standards for the DigitaleZen CF7 Antispam plugin.</description>
 
-  <!-- analizza solo file PHP -->
   <arg name="extensions" value="php"/>
   <arg name="basepath" value="."/>
 
-  <!-- Copertura forte ma senza PHPCSExtra -->
+  <!-- WPCS 2.x: standard disponibili -->
   <rule ref="WordPress-Core"/>
   <rule ref="WordPress-Extra"/>
-  <!-- Se vuoi più verbosità sui commenti, abilita anche:
-  <rule ref="WordPress-Docs"/>
-  -->
+  <!-- opzionale: <rule ref="WordPress-Docs"/> -->
 
-  <!-- escludi cartelle non rilevanti -->
   <exclude-pattern>vendor/*</exclude-pattern>
   <exclude-pattern>node_modules/*</exclude-pattern>
   <exclude-pattern>assets/*</exclude-pattern>
