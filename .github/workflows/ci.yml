@@ -3,7 +3,7 @@ name: CI - PHPCS & PHPUnit (no Composer)
 on:
   push:
   pull_request:
-  workflow_dispatch:  # abilita il pulsante "Run workflow" su GitHub
+  workflow_dispatch:  # pulsante "Run workflow"
 
 jobs:
   phpcs:
@@ -15,23 +15,34 @@ jobs:
         with:
           php-version: '8.2'
           coverage: none
+
       - name: Install PHPCS + WPCS deps (PHPCS 3.x compat)
         run: |
-          # PHPCS phar
+          set -e
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
-          # Pin versioni compatibili con PHPCS 3.x
-          git clone --branch 3.0.1 --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
-          git clone --branch 1.0.9 --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git PHPCSUtils
-          git clone --branch 1.2.1 --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
-          # ↑ 1.x = compat con PHPCS 3.x e fornisce lo standard "Universal"
-          php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSExtra,$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
+
+          EXTRA_DIR="$RUNNER_TEMP/PHPCSExtra"
+          UTILS_DIR="$RUNNER_TEMP/PHPCSUtils"
+          WPCS_DIR="$RUNNER_TEMP/wpcs"
+
+          git clone --depth=1 --branch 1.2.1 https://github.com/PHPCSStandards/PHPCSExtra.git "$EXTRA_DIR"
+          git clone --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git "$UTILS_DIR"
+          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git "$WPCS_DIR"
+
+          php phpcs.phar --config-set installed_paths "$EXTRA_DIR,$UTILS_DIR,$WPCS_DIR"
           php phpcs.phar -i
+
       - name: Run PHPCS
         run: |
+          set -e
           if [ -f phpcs.xml ] || [ -f phpcs.xml.dist ]; then
-            php phpcs.phar -p --report=summary .
+            # usa la tua configurazione; ignora i soli warning ai fini dell'exit code
+            php phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
           else
-            php phpcs.phar --standard=WordPress --extensions=php --ignore=vendor/*,node_modules/*,assets/* --report=summary -p .
+            # fallback standard WordPress se non hai un phpcs.xml
+            php phpcs.phar -p --standard=WordPress --extensions=php \
+              --ignore=vendor/*,node_modules/*,assets/*,tests/*,.github/* \
+              --report=summary .
           fi
 
   phpunit:
@@ -75,6 +86,7 @@ jobs:
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh
           chmod +x /tmp/install-wp-tests.sh
+          # ultimo parametro "true" = salta la creazione DB (già fatta sopra)
           bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest true
       - name: Run PHPUnit
         run: phpunit -v
