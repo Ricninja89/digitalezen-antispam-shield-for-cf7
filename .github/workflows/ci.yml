@@ -17,26 +17,24 @@ jobs:
           php-version: '8.2'
           coverage: none
 
-      - name: Install PHPCS + WPCS (solo WPCS, no PHPCSExtra)
+      - name: Install PHPCS + WPCS (pinnato a WPCS 2.3.0)
         run: |
           set -e
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
 
           WPCS_DIR="$RUNNER_TEMP/wpcs"
-          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git "$WPCS_DIR"
+          # >>> pin a 2.x per evitare dipendenza da PHPCSUtils/PHPCSExtra
+          git clone --depth=1 --branch 2.3.0 https://github.com/WordPress/WordPress-Coding-Standards.git "$WPCS_DIR"
 
-          # registra lo standard WordPress in PHPCS
           php phpcs.phar --config-set installed_paths "$WPCS_DIR"
           php phpcs.phar -i
 
       - name: Run PHPCS
         run: |
           set -e
-          # usa la tua config (phpcs.xml[.dist]); ignora i WARNING nell'exit code
           if [ -f phpcs.xml ] || [ -f phpcs.xml.dist ]; then
             php phpcs.phar -p --report=summary --runtime-set ignore_warnings_on_exit 1 .
           else
-            # fallback, se manca la config
             php phpcs.phar -p --standard=WordPress --extensions=php \
               --ignore=vendor/*,node_modules/*,assets/*,tests/*,.github/* \
               --report=summary --runtime-set ignore_warnings_on_exit 1 .
@@ -83,7 +81,6 @@ jobs:
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh
           chmod +x /tmp/install-wp-tests.sh
-          # ultimo parametro "true" = salta la creazione DB (già fatta sopra)
           bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest true
       - name: Run PHPUnit
         run: phpunit -v
