@@ -57,6 +57,10 @@ jobs:
         with:
           php-version: '8.2'
           tools: phpunit:9.6
+      - name: Install SVN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion
       - name: Download & install WP test suite
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh

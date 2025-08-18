@@ -6,3 +6,5 @@ Elenco dei controlli automatici che verificano l'efficacia del plugin:
 - **Honeypot**: se il campo nascosto `spamcheck` è compilato l'invio viene impedito.
 - **Blacklist**: email presenti nel file `cf7-blacklist.json` non possono inviare il modulo.
 - **Rilevamento flood**: dopo tre invii nello stesso intervallo l'indirizzo IP/email viene considerato sospetto.
+
+> La WordPress test suite viene scaricata tramite SVN all'interno delle GitHub Actions per garantire l'ambiente di test.
