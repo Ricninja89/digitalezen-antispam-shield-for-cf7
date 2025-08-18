@@ -17,13 +17,14 @@ jobs:
           coverage: none
       - name: Install PHPCS + WPCS deps (PHPCS 3.x compat)
         run: |
-          # PHPCS phar (3.x sui runner GitHub)
+          # PHPCS phar
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
           # Pin versioni compatibili con PHPCS 3.x
           git clone --branch 3.0.1 --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
           git clone --branch 1.0.9 --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git PHPCSUtils
-          # PHPCSExtra escluso: non serve per WPCS ed evita mismatch con PHPCS 4
-          php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
+          git clone --branch 1.0.2 --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
+          # ↑ 1.0.x = compat con PHPCS 3.x e fornisce lo standard "Universal"
+          php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSExtra,$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
           php phpcs.phar -i
       - name: Run PHPCS
         run: |
@@ -74,7 +75,6 @@ jobs:
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh
           chmod +x /tmp/install-wp-tests.sh
-          # Ultimo parametro "true" = salta la creazione DB (già fatta sopra)
           bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest true
       - name: Run PHPUnit
         run: phpunit -v
