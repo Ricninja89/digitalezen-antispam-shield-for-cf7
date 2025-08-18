@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Sicurezza: accetta solo nomi autorizzati
 $whitelist = [
-    'cf7-blacklist.json'    => WP_CONTENT_DIR . '/uploads/cf7-logs/cf7-blacklist.json',
-    'ip-attempts.json'      => WP_CONTENT_DIR . '/ip-attempts.json',
-    'email-attempts.json'   => WP_CONTENT_DIR . '/email-attempts.json',
+    'cf7-blacklist.json'  => DZ_CF7_UPLOAD_DIR . 'cf7-blacklist.json',
+    'ip-attempts.json'    => DZ_CF7_UPLOAD_DIR . 'ip-attempts.json',
+    'email-attempts.json' => DZ_CF7_UPLOAD_DIR . 'email-attempts.json',
 ];
 
 if (
@@ -49,7 +49,7 @@ $content = $wp_filesystem->get_contents($file_path);
 $json_decoded = json_decode($content, true);
 if (json_last_error() === JSON_ERROR_NONE) {
     header('Content-Type: application/json; charset=UTF-8');
-    echo wp_json_encode($json_decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    echo wp_json_encode($json_decoded, JSON_PRETTY_PRINT);
 } else {
     // Fallback in plain text (escaped)
     header('Content-Type: text/plain; charset=UTF-8');

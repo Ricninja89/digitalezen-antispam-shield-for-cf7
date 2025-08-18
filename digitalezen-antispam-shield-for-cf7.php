@@ -19,6 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 define('DZ_CF7_DIR', plugin_dir_path(__FILE__));
 define('DZ_CF7_URL', plugin_dir_url(__FILE__));
 
+// Directory e URL per i file generati dal plugin
+$dz_cf7_upload = wp_upload_dir();
+define('DZ_CF7_UPLOAD_DIR', trailingslashit(trailingslashit($dz_cf7_upload['basedir']) . 'digitalezen-antispam-shield-for-cf7'));
+define('DZ_CF7_UPLOAD_URL', trailingslashit(trailingslashit($dz_cf7_upload['baseurl']) . 'digitalezen-antispam-shield-for-cf7'));
+
+// Slug univoco per la pagina di amministrazione
+define('DZ_CF7_MENU_SLUG', 'dzcf7-antispam');
+
 // Includi moduli
 require_once DZ_CF7_DIR . 'includes/firewall.php';
 require_once DZ_CF7_DIR . 'includes/hooks.php';
@@ -28,7 +36,7 @@ require_once DZ_CF7_DIR . 'includes/admin-dashboard.php';
 
 // Carica assets per l’admin
 add_action('admin_enqueue_scripts', function($hook) {
-        if (strpos($hook, 'cf7-antispam') !== false) {
+        if (strpos($hook, DZ_CF7_MENU_SLUG) !== false) {
             wp_enqueue_style(
                 'dz-cf7-style',
                 DZ_CF7_URL . 'assets/style.css',

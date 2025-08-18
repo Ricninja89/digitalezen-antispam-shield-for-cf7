@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // 🔒 BLOCCO IP – Hook INIT
 add_action('init', function () {
 	$ip  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-	$file = WP_CONTENT_DIR . '/block-ip.txt';
+        $file = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 
 	if (!file_exists($file)) return;
 

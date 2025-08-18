@@ -1,5 +1,5 @@
 === DigitaleZen AntiSpam Shield for CF7 ===
-Contributors: digitalezen, Riccardo Rosignoli
+Contributors: digitalezen, riccardorosignoli
 Donate link: https://digitalezen.it
 Author: DigitaleZen
 Author URI: https://digitalezen.it
@@ -72,6 +72,10 @@ No. But you can customize the weekly report recipient and enable specific shortc
 
 = Are user data sent to third parties? =  
 No. All data (IP, emails, logs) remain local. The blacklist is read-only.
+
+== External services ==
+
+This plugin connects to a DigitaleZen Google Apps Script to download an updated spam blacklist. The request is performed once per day and does not send any personal data from your site. The service is provided by DigitaleZen — [terms of use](https://digitalezen.it/terms/) | [privacy policy](https://digitalezen.it/privacy-policy/).
 
 == Changelog ==
 
