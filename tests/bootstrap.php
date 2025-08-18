@@ -1,11 +1,11 @@
 <?php
-$tests_dir = getenv( 'WP_TESTS_DIR' );
+$tests_dir    = getenv( 'WP_TESTS_DIR' );
 if ( ! $tests_dir ) {
     $tests_dir = '/tmp/wordpress-tests-lib';
 }
+$develop_dir = sys_get_temp_dir() . '/wordpress-develop';
 
 if ( ! file_exists( $tests_dir . '/includes/functions.php' ) ) {
-    $develop_dir = sys_get_temp_dir() . '/wordpress-develop';
     if ( ! file_exists( $develop_dir . '/tests/phpunit/includes/functions.php' ) ) {
         echo "Cloning wordpress-develop...\n";
         system( 'git clone --depth=1 https://github.com/WordPress/wordpress-develop ' . escapeshellarg( $develop_dir ), $retval );
@@ -22,14 +22,23 @@ if ( ! file_exists( $tests_dir . '/includes/functions.php' ) ) {
     // Copia la libreria dei test.
     system( 'cp -r ' . escapeshellarg( $develop_dir . '/tests/phpunit/includes' ) . ' ' . escapeshellarg( $tests_dir ) );
     system( 'cp -r ' . escapeshellarg( $develop_dir . '/tests/phpunit/data' ) . ' ' . escapeshellarg( $tests_dir ) );
+}
+
+if ( ! defined( 'WP_CORE_DIR' ) ) {
     define( 'WP_CORE_DIR', $develop_dir . '/src' );
 }
 
 if ( ! defined( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH' ) ) {
-    define(
-        'WP_TESTS_PHPUNIT_POLYFILLS_PATH',
-        getenv( 'HOME' ) . '/.local/share/mise/installs/php/8.4.11/.composer/vendor/yoast/phpunit-polyfills'
-    );
+    $polyfills = getenv( 'HOME' ) . '/.local/share/mise/installs/php/8.4.11/.composer/vendor/yoast/phpunit-polyfills';
+    if ( ! file_exists( $polyfills . '/phpunitpolyfills-autoload.php' ) ) {
+        $polyfills = sys_get_temp_dir() . '/phpunit-polyfills';
+        if ( ! file_exists( $polyfills . '/phpunitpolyfills-autoload.php' ) ) {
+            echo "Cloning PHPUnit Polyfills...\n";
+            system( 'git clone --depth=1 https://github.com/Yoast/PHPUnit-Polyfills ' . escapeshellarg( $polyfills ) );
+            system( 'cd ' . escapeshellarg( $polyfills ) . ' && composer install >/tmp/polyfills.log 2>&1' );
+        }
+    }
+    define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', $polyfills );
 }
 
 if ( ! defined( 'FS_CHMOD_FILE' ) ) {

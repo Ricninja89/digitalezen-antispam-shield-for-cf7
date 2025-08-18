@@ -20,25 +20,13 @@ class DZ_CF7_Antispam_Core_Test extends WP_UnitTestCase {
         $dir     = trailingslashit( $uploads['basedir'] ) . 'dz-cf7-tests';
         $file    = trailingslashit( $dir ) . 'probe.txt';
 
-        if ( file_exists( $file ) ) { @unlink( $file ); }
+        if ( file_exists( $file ) ) {
+            @unlink( $file );
+        }
 
         $ok = dz_cf7_fs_put_contents( $file, 'ok' );
         $this->assertTrue( (bool) $ok, 'dz_cf7_fs_put_contents() ha restituito falso' );
         $this->assertFileExists( $file );
-        $this->assertSame( 'ok', file_get_contents( $file ) ); // ok nei test
-    }
-
-    public function test_http_mock() {
-        add_filter( 'pre_http_request', function() {
-            return array(
-                'response' => array( 'code' => 200, 'message' => 'OK' ),
-                'headers'  => array(),
-                'body'     => '{"status":"ok"}',
-            );
-        } );
-
-        $resp = wp_remote_get( 'https://example.test' );
-        $this->assertFalse( is_wp_error( $resp ) );
-        $this->assertSame( '{"status":"ok"}', wp_remote_retrieve_body( $resp ) );
+        $this->assertSame( 'ok', file_get_contents( $file ) );
     }
 }

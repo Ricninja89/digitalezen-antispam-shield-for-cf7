@@ -101,15 +101,15 @@ class DZ_CF7_Antispam_Spam_Test extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'honeypot', dz_cf7_fs_get_contents( $log ) );
 	}
 
-	public function test_blacklist_blocks_email() {
-		$blacklist = array(
-			'ips'       => array(),
-			'emails'    => array( 'bad@example.com' ),
-			'domains'   => array(),
-			'usernames' => array(),
-			'keywords'  => array(),
-		);
-		dz_cf7_fs_put_contents( DZ_CF7_UPLOAD_DIR . 'cf7-blacklist.json', wp_json_encode( $blacklist ) );
+        public function test_blacklist_blocks_email() {
+                $blacklist = array(
+                        'ips'       => array(),
+                        'emails'    => array( 'bad@example.com' ),
+                        'domains'   => array(),
+                        'usernames' => array(),
+                        'keywords'  => array(),
+                );
+                dz_cf7_fs_put_contents( DZ_CF7_UPLOAD_DIR . 'cf7-blacklist.json', wp_json_encode( $blacklist ) );
 
 		$form_id = 12;
 		$token   = hash( 'sha256', "form-$form_id::" . gmdate( 'YmdH' ) );
@@ -123,10 +123,34 @@ class DZ_CF7_Antispam_Spam_Test extends WP_UnitTestCase {
 		dz_cf7_anti_spam_guard( $cf7 );
 
 		$this->assertTrue( $cf7->skip_mail, 'Blacklisted email should block submission' );
-		$log = DZ_CF7_UPLOAD_DIR . 'cf7-spam-log.csv';
-		$this->assertFileExists( $log );
-		$this->assertStringContainsString( 'email', dz_cf7_fs_get_contents( $log ) );
-	}
+                $log = DZ_CF7_UPLOAD_DIR . 'cf7-spam-log.csv';
+                $this->assertFileExists( $log );
+                $this->assertStringContainsString( 'email', dz_cf7_fs_get_contents( $log ) );
+        }
+
+        public function test_blacklist_blocks_domain() {
+                $blacklist = array(
+                        'ips'       => array(),
+                        'emails'    => array(),
+                        'domains'   => array( 'spam.com' ),
+                        'usernames' => array(),
+                        'keywords'  => array(),
+                );
+                dz_cf7_fs_put_contents( DZ_CF7_UPLOAD_DIR . 'cf7-blacklist.json', wp_json_encode( $blacklist ) );
+
+                $form_id = 13;
+                $token   = hash( 'sha256', "form-$form_id::" . gmdate( 'YmdH' ) );
+                $cf7     = new WPCF7_ContactForm( $form_id );
+                $data    = array(
+                        'form-token' => $token,
+                        'your-email' => 'user@spam.com',
+                );
+                WPCF7_Submission::mock( $data );
+
+                dz_cf7_anti_spam_guard( $cf7 );
+
+                $this->assertTrue( $cf7->skip_mail, 'Blacklisted domain should block submission' );
+        }
 
 	public function test_flood_detection_limit() {
 		$ip    = '9.9.9.9';
