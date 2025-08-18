@@ -3,6 +3,7 @@ name: CI - PHPCS & PHPUnit (no Composer)
 on:
   push:
   pull_request:
+  workflow_dispatch:  # consente il run manuale da GitHub
 
 jobs:
   phpcs:
@@ -17,7 +18,7 @@ jobs:
       - name: Install PHPCS + WPCS deps
         run: |
           curl -Ls https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/phpcs.phar -o phpcs.phar
-          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards.git wpcs
+          git clone --depth=1 https://github.com/WordPress/WordPress-Coding-Standards/wpcs.git wpcs
           git clone --depth=1 https://github.com/PHPCSStandards/PHPCSUtils.git PHPCSUtils
           git clone --depth=1 https://github.com/PHPCSStandards/PHPCSExtra.git PHPCSExtra
           php phpcs.phar --config-set installed_paths "$GITHUB_WORKSPACE/PHPCSExtra,$GITHUB_WORKSPACE/PHPCSUtils,$GITHUB_WORKSPACE/wpcs"
@@ -25,9 +26,9 @@ jobs:
       - name: Run PHPCS
         run: |
           if [ -f phpcs.xml ] || [ -f phpcs.xml.dist ]; then
-            php phpcs.phar --report=summary .
+            php phpcs.phar -p --report=summary .
           else
-            php phpcs.phar --standard=WordPress --extensions=php --ignore=vendor/*,node_modules/*,assets/* --report=summary .
+            php phpcs.phar --standard=WordPress --extensions=php --ignore=vendor/*,node_modules/*,assets/* --report=summary -p .
           fi
 
   phpunit:
@@ -39,12 +40,13 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: wordpress_test
-        ports: ['3306:3306']
+        ports:
+          - 3306:3306
         options: >-
           --health-cmd "mysqladmin ping -h 127.0.0.1 -proot"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
     env:
       WP_TESTS_DB_NAME: wordpress_test
       WP_TESTS_DB_USER: root
@@ -56,6 +58,8 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          extensions: mysqli
+          coverage: none
           tools: phpunit:9.6
       - name: Install SVN
         run: |
@@ -65,6 +69,6 @@ jobs:
         run: |
           curl -Ls https://raw.githubusercontent.com/wp-cli/scaffold-command/master/templates/install-wp-tests.sh -o /tmp/install-wp-tests.sh
           chmod +x /tmp/install-wp-tests.sh
-          bash /tmp/install-wp-tests.sh $WP_TESTS_DB_NAME $WP_TESTS_DB_USER $WP_TESTS_DB_PASS $WP_TESTS_DB_HOST latest
+          bash /tmp/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_PASS" "$WP_TESTS_DB_HOST" latest
       - name: Run PHPUnit
-        run: phpunit
+        run: phpunit -v
