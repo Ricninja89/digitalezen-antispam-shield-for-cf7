@@ -22,7 +22,10 @@ function dz_cf7_log_spam($reason, $data, $log_path, $trigger = '')
 	file_put_contents($log_path, $line, FILE_APPEND);
 
 	// Blocco IP temporaneo
-	$blockfile = WP_CONTENT_DIR . '/block-ip.txt';
+        if ( ! file_exists( DZ_CF7_UPLOAD_DIR ) ) {
+            wp_mkdir_p( DZ_CF7_UPLOAD_DIR );
+        }
+        $blockfile = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 	$block_until = time() + 600; // 10 minuti
 	file_put_contents($blockfile, "$ip|$block_until\n", FILE_APPEND);
 
@@ -40,8 +43,12 @@ function dz_cf7_check_flood($ip, $email)
 	$window = 900; // 15 minuti
 	$limit = 3;
 
-	$ip_path = WP_CONTENT_DIR . '/ip-attempts.json';
-	$mail_path = WP_CONTENT_DIR . '/email-attempts.json';
+        $base_dir  = DZ_CF7_UPLOAD_DIR;
+        if ( ! file_exists( $base_dir ) ) {
+            wp_mkdir_p( $base_dir );
+        }
+        $ip_path   = $base_dir . 'ip-attempts.json';
+        $mail_path = $base_dir . 'email-attempts.json';
 
 	$ip_attempts = file_exists($ip_path) ? json_decode(file_get_contents($ip_path), true) ?? [] : [];
 	$mail_attempts = file_exists($mail_path) ? json_decode(file_get_contents($mail_path), true) ?? [] : [];
@@ -54,8 +61,8 @@ function dz_cf7_check_flood($ip, $email)
 	$mail_attempts[$email] = array_filter($mail_attempts[$email] ?? [], fn($ts) => ($now - $ts) < $window);
 	$mail_attempts[$email][] = $now;
 
-	file_put_contents($ip_path, json_encode($ip_attempts));
-	file_put_contents($mail_path, json_encode($mail_attempts));
+        file_put_contents($ip_path, wp_json_encode($ip_attempts));
+        file_put_contents($mail_path, wp_json_encode($mail_attempts));
 
 	return (count($ip_attempts[$ip]) >= $limit || count($mail_attempts[$email]) >= $limit);
 }
@@ -70,7 +77,7 @@ add_action('dz_cf7_send_log', 'dz_cf7_send_spam_log_email');
 
 function dz_cf7_send_spam_log_email()
 {
-	$path = wp_upload_dir()['basedir'] . '/cf7-logs/cf7-spam-log.csv';
+        $path = DZ_CF7_UPLOAD_DIR . 'cf7-spam-log.csv';
 
 	// Se il file non esiste o è vuoto, non inviare nulla
 	if (!file_exists($path) || filesize($path) == 0) return;

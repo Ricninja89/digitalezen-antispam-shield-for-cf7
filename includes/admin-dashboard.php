@@ -9,15 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // 🔧 Aggiunge la voce di menu in admin
 add_action('admin_menu', function () {
-	add_menu_page(
+        add_menu_page(
             __('CF7 AntiSpam', 'digitalezen-antispam-shield-for-cf7'),
             __('CF7 AntiSpam', 'digitalezen-antispam-shield-for-cf7'),
-	    'manage_options',
-	    'cf7-antispam',
-	    'dz_cf7_render_dashboard',
-	    'dashicons-shield-alt',
-	    80
-	);
+            'manage_options',
+            DZ_CF7_MENU_SLUG,
+            'dz_cf7_render_dashboard',
+            'dashicons-shield-alt',
+            80
+        );
 });
 
 // 💾 Salva le impostazioni dal form
@@ -72,7 +72,7 @@ add_action( 'admin_init', function () {
 
 // 📊 Enqueue degli script solo nella pagina CF7 AntiSpam
 add_action('admin_enqueue_scripts', function ($hook) {
-    if ($hook !== 'toplevel_page_cf7-antispam') return;
+    if ($hook !== 'toplevel_page_' . DZ_CF7_MENU_SLUG) return;
 
     // Chart.js locale
     wp_enqueue_script(

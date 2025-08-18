@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if (!current_user_can('manage_options')) return;
 
 $log_email = get_option('dz_cf7_log_email', get_option('admin_email'));
-$upload_dir = wp_upload_dir()['basedir'] . '/cf7-logs';
-$upload_url = wp_upload_dir()['baseurl'] . '/cf7-logs';
+$upload_dir = DZ_CF7_UPLOAD_DIR;
+$upload_url = DZ_CF7_UPLOAD_URL;
 
-$log_file = $upload_url . '/cf7-spam-log.csv';
-$blacklist_file = $upload_url . '/cf7-blacklist.json';
+$log_file = $upload_url . 'cf7-spam-log.csv';
+$blacklist_file = $upload_url . 'cf7-blacklist.json';
 ?>
 
 <div class="wrap" style="max-width: 800px;">
@@ -133,12 +133,12 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	                ?>
 	            </td>
 	            <td>
-	                <a
-	                    href="<?php echo esc_url(content_url('/block-ip.txt')); ?>"
-	                    class="button button-secondary" target="_blank">
+                        <a
+                            href="<?php echo esc_url(DZ_CF7_UPLOAD_URL . 'block-ip.txt'); ?>"
+                            class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
-	                <a href="<?php echo esc_url(content_url('/block-ip.txt')); ?>" class="button" download>
+                        <a href="<?php echo esc_url(DZ_CF7_UPLOAD_URL . 'block-ip.txt'); ?>" class="button" download>
 	                    📥 <?php esc_html_e('Download', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
 	            </td>
@@ -163,7 +163,7 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	                    class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
-	                <a href="<?php echo esc_url(content_url('/ip-attempts.json')); ?>" class="button" download>
+                        <a href="<?php echo esc_url(DZ_CF7_UPLOAD_URL . 'ip-attempts.json'); ?>" class="button" download>
 	                    📥 <?php esc_html_e('Download', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
 	            </td>
@@ -188,7 +188,7 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	                    class="button button-secondary" target="_blank">
                             👁️ <?php esc_html_e('View', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
-	                <a href="<?php echo esc_url(content_url('/email-attempts.json')); ?>" class="button" download>
+                        <a href="<?php echo esc_url(DZ_CF7_UPLOAD_URL . 'email-attempts.json'); ?>" class="button" download>
 	                    📥 <?php esc_html_e('Download', 'digitalezen-antispam-shield-for-cf7'); ?>
 	                </a>
 	            </td>
@@ -206,7 +206,7 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	<?php
 	// Funzione aggiornata: conta per tipo e intervallo
 	function dz_cf7_count_spam_by_type_and_range($minutes) {
-	    $path = wp_upload_dir()['basedir'] . '/cf7-logs/cf7-spam-log.csv';
+            $path = DZ_CF7_UPLOAD_DIR . 'cf7-spam-log.csv';
 	    if (!file_exists($path)) return [];
 
 	    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -244,9 +244,17 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	    $data_report_by_type[$label] = dz_cf7_count_spam_by_type_and_range($minutes);
 	}
 
-	// Passa i dati al grafico JS
-	echo '<script>window.dz_cf7_chart_grouped_data = ' . json_encode($data_report_by_type) . ';</script>';
-	echo '<script>window.dz_cf7_chart_labels = ' . json_encode(array_keys($intervalli)) . ';</script>';
+        // Passa i dati al grafico JS
+        wp_add_inline_script(
+            'dz-cf7-dashboard',
+            'window.dz_cf7_chart_grouped_data = ' . wp_json_encode($data_report_by_type) . ';',
+            'before'
+        );
+        wp_add_inline_script(
+            'dz-cf7-dashboard',
+            'window.dz_cf7_chart_labels = ' . wp_json_encode(array_keys($intervalli)) . ';',
+            'before'
+        );
 
 	?>
 
@@ -264,7 +272,7 @@ $blacklist_file = $upload_url . '/cf7-blacklist.json';
 	    </thead>
 	    <tbody>
 	    <?php
-	    $path = wp_upload_dir()['basedir'] . '/cf7-logs/cf7-spam-log.csv';
+        $path = DZ_CF7_UPLOAD_DIR . 'cf7-spam-log.csv';
 	    if (file_exists($path)) {
 	        $lines = array_reverse(file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES));
 	        $max = 30;

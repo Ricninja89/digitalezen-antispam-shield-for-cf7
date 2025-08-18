@@ -15,10 +15,10 @@ function dz_cf7_anti_spam_guard($cf7)
 	$submission = WPCF7_Submission::get_instance();
 	if (!$submission) return;
 
-	$data = $submission->get_posted_data();
-	$upload_dir = wp_upload_dir()['basedir'] . '/cf7-logs';
-	$log_path = $upload_dir . '/cf7-spam-log.csv';
-	$json_path = $upload_dir . '/cf7-blacklist.json';
+        $data = $submission->get_posted_data();
+        $upload_dir = DZ_CF7_UPLOAD_DIR;
+        $log_path   = $upload_dir . 'cf7-spam-log.csv';
+        $json_path  = $upload_dir . 'cf7-blacklist.json';
 
 	// 🧪 Token form anti-bot
 	$form_id = $cf7->id();
