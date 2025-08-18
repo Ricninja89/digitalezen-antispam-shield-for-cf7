@@ -1,29 +1,44 @@
-# Archivi/compressi
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node / build
+/node_modules/
+dist/
+build/
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# Python cache
+__pycache__/
+
+# Archivi
 *.zip
 *.tar.gz
 *.rar
 
-# File di sistema
-.DS_Store
-Thumbs.db
-
-# IDE / editor
-.vscode/
-.idea/
-
-# Node.js / Python cache
-/node_modules/
-__pycache__/
-*.log
-
-# File temporanei
+# Temporanei
 *.tmp
 *.bak
 *.swp
 
-# Ignora cartelle build se presenti
-/dist/
-/build/
+# PHP tooling caches
+.phpunit.result.cache
+.phpcs.cache
+.phpcs.xml.cache
 
-# Ignora solo i file binari di traduzione
+# (Opzionale) Composer – utile se in futuro lo aggiungi
+/vendor/
+composer.phar
+composer.lock
+
+# (Opzionale) Env locali
+.env
+.env.*
+.wp-env.json
+
+# Traduzioni binarie – tieni *questa* riga solo se NON vuoi versionare i .mo
 *.mo
