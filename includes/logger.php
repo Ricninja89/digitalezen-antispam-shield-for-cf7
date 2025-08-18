@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Registra tentativi di spam.
  *
  * @param string $reason  Motivo del blocco.
- * @param array  $data    Dati inviati.
+ * @param array	 $data	  Dati inviati.
  * @param string $log_path Percorso del file di log.
  * @param string $trigger  Informazione aggiuntiva.
  */
@@ -25,18 +25,18 @@ function dz_cf7_log_spam( $reason, $data, $log_path, $trigger = '' ) {
 	}
 
 	$email = sanitize_email( $data['your-email'] ?? 'unknown' );
-	$ip    = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
+	$ip	   = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
 	$row   = array( gmdate( 'Y-m-d H:i:s' ), $email, $ip, $reason, $trigger );
 	$line  = implode( ',', array_map( 'dz_cf7_csv_escape', $row ) ) . "\n";
-	file_put_contents( $log_path, $line, FILE_APPEND );
+	dz_cf7_fs_append( $log_path, $line );
 
 		// Blocco IP temporaneo.
 	if ( ! file_exists( DZ_CF7_UPLOAD_DIR ) ) {
 		wp_mkdir_p( DZ_CF7_UPLOAD_DIR );
 	}
-		$blockfile   = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
+		$blockfile	 = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 		$block_until = time() + 600; // 10 minuti.
-	file_put_contents( $blockfile, "$ip|$block_until\n", FILE_APPEND );
+	dz_cf7_fs_append( $blockfile, "$ip|$block_until\n" );
 
 	dz_cf7_track_attempts( $ip, $email );
 }
@@ -55,13 +55,13 @@ function dz_cf7_csv_escape( $value ) {
 /**
  * Controlla se un IP o email hanno superato il limite di invii.
  *
- * @param string $ip    Indirizzo IP.
+ * @param string $ip	Indirizzo IP.
  * @param string $email Email.
  * @return bool
  */
 function dz_cf7_check_flood( $ip, $email ) {
 		$window = 900; // 15 minuti.
-	$limit      = 3;
+	$limit		= 3;
 
 		$base_dir = DZ_CF7_UPLOAD_DIR;
 	if ( ! file_exists( $base_dir ) ) {
@@ -70,19 +70,19 @@ function dz_cf7_check_flood( $ip, $email ) {
 		$ip_path   = $base_dir . 'ip-attempts.json';
 		$mail_path = $base_dir . 'email-attempts.json';
 
-	$ip_attempts   = file_exists( $ip_path ) ? json_decode( file_get_contents( $ip_path ), true ) ?? array() : array();
-	$mail_attempts = file_exists( $mail_path ) ? json_decode( file_get_contents( $mail_path ), true ) ?? array() : array();
+	$ip_attempts   = file_exists( $ip_path ) ? json_decode( dz_cf7_fs_get_contents( $ip_path ), true ) ?? array() : array();
+	$mail_attempts = file_exists( $mail_path ) ? json_decode( dz_cf7_fs_get_contents( $mail_path ), true ) ?? array() : array();
 
 	$now = time();
 
-	$ip_attempts[ $ip ]   = array_filter( $ip_attempts[ $ip ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
+	$ip_attempts[ $ip ]	  = array_filter( $ip_attempts[ $ip ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
 	$ip_attempts[ $ip ][] = $now;
 
 	$mail_attempts[ $email ]   = array_filter( $mail_attempts[ $email ] ?? array(), fn( $ts ) => ( $now - $ts ) < $window );
 	$mail_attempts[ $email ][] = $now;
 
-		file_put_contents( $ip_path, wp_json_encode( $ip_attempts ) );
-		file_put_contents( $mail_path, wp_json_encode( $mail_attempts ) );
+		dz_cf7_fs_put_contents( $ip_path, wp_json_encode( $ip_attempts ) );
+		dz_cf7_fs_put_contents( $mail_path, wp_json_encode( $mail_attempts ) );
 
 	return ( count( $ip_attempts[ $ip ] ) >= $limit || count( $mail_attempts[ $email ] ) >= $limit );
 }
@@ -90,7 +90,7 @@ function dz_cf7_check_flood( $ip, $email ) {
 /**
  * Funzione placeholder per compatibilità futura.
  *
- * @param string $ip    Indirizzo IP.
+ * @param string $ip	Indirizzo IP.
  * @param string $email Email.
  */
 function dz_cf7_track_attempts( $ip, $email ) {
@@ -127,7 +127,7 @@ function dz_cf7_send_spam_log_email() {
 		);
 
 		// Svuota il file dopo l'invio.
-		file_put_contents( $path, '' );
+		dz_cf7_fs_put_contents( $path, '' );
 }
 
 // Pianifica cron settimanale.

@@ -13,14 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'init',
 	function () {
-		$ip   = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+		$ip	  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 		$file = DZ_CF7_UPLOAD_DIR . 'block-ip.txt';
 
 		if ( ! file_exists( $file ) ) {
 			return;
 		}
 
-		$lines     = file( $file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+		$contents = dz_cf7_fs_get_contents( $file );
+		if ( false === $contents ) {
+			return;
+		}
+		$lines	   = array_filter( array_map( 'trim', explode( "\n", $contents ) ) );
 		$new_lines = array();
 
 		foreach ( $lines as $line ) {
@@ -39,6 +43,6 @@ add_action(
 		}
 
 				// Sovrascrive il file con solo IP ancora validi.
-		file_put_contents( $file, implode( "\n", $new_lines ) . "\n" );
+		dz_cf7_fs_put_contents( $file, implode( "\n", $new_lines ) . "\n" );
 	}
 );

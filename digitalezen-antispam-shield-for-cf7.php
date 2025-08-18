@@ -31,6 +31,7 @@ define( 'DZ_CF7_UPLOAD_URL', trailingslashit( trailingslashit( $dz_cf7_upload['b
 define( 'DZ_CF7_MENU_SLUG', 'dzcf7-antispam' );
 
 // Includi moduli.
+require_once DZ_CF7_DIR . 'includes/filesystem.php';
 require_once DZ_CF7_DIR . 'includes/firewall.php';
 require_once DZ_CF7_DIR . 'includes/hooks.php';
 require_once DZ_CF7_DIR . 'includes/logger.php';
