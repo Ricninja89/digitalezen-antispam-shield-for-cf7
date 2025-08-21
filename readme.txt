@@ -75,7 +75,17 @@ No. All data (IP, emails, logs) remain local. The blacklist is read-only.
 
 == External services ==
 
-This plugin connects to a DigitaleZen Google Apps Script to download an updated spam blacklist. The request is performed once per day and does not send any personal data from your site. The service is provided by DigitaleZen — [terms of use](https://digitalezen.it/terms/) | [privacy policy](https://digitalezen.it/privacy-policy/).
+This plugin periodically downloads an updated anti-spam blacklist from a service operated by DigitaleZen and hosted on Google Apps Script (domain: script.google.com).
+
+• Purpose: fetch a JSON list of abusive/disposable emails and domains used by the plugin’s firewall checks.
+• When data is sent: once per day via WP-Cron (and when an admin triggers a manual update).
+• What data is sent: no form submissions and no user personal data are sent. The request is server-to-server (HTTP GET) and only standard headers (e.g., User-Agent) are included.
+• Storage: the downloaded JSON is stored locally within your WordPress site (e.g. under wp-content/uploads in a plugin-specific folder).
+• Opt-out: you can disable the external fetch and rely on built-in defaults via plugin filters/constants.
+
+Provider policies (service owner): DigitaleZen — https://digitalezen.it/terms/ • https://digitalezen.it/privacy-policy/
+Hosting platform policies (infrastructure): Google — https://policies.google.com/terms • https://policies.google.com/privacy
+
 
 == Changelog ==
 
