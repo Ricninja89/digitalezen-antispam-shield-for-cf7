@@ -48,7 +48,7 @@ add_action(
 function dz_cf7_render_dashboard() {
 		// Banner e logo nella parte alta della dashboard.
 		echo '<div style="text-align: center; padding: 20px 0;">';
-		$banner_url = plugins_url( 'assets/img/banner2.png', dirname( __DIR__ ) . '/digitalezen-antispam-shield-for-cf7.php' );
+		$banner_url = plugins_url( 'assets/admin/admin-hero.png', dirname( __DIR__ ) . '/digitalezen-antispam-shield-for-cf7.php' );
 		echo wp_kses(
 			sprintf(
 				'<img src="%1$s" alt="%2$s" style="max-width: 100%%; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 20px;">',
