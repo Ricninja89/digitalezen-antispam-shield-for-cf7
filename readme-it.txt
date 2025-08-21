@@ -81,7 +81,6 @@ Questo plugin scarica periodicamente una blacklist antispam aggiornata da un ser
 • Quando vengono inviati dati: una volta al giorno tramite WP-Cron (e quando un amministratore avvia un aggiornamento manuale).
 • Quali dati vengono inviati: non vengono inviati contenuti dei moduli né dati personali degli utenti. La richiesta è server-to-server (HTTP GET) e include solo intestazioni standard (es. User-Agent).
 • Archiviazione: il JSON scaricato viene salvato localmente nel tuo sito WordPress (ad es. in wp-content/uploads, in una cartella specifica del plugin).
-• Opt-out: è possibile disattivare il fetch esterno e usare i valori predefiniti interni tramite filtri/costanti del plugin.
 
 Informative del provider (titolare del servizio): DigitaleZen — https://digitalezen.it/terms/ • https://digitalezen.it/privacy-policy/
 Informative della piattaforma di hosting (infrastruttura): Google — https://policies.google.com/terms • https://policies.google.com/privacy
